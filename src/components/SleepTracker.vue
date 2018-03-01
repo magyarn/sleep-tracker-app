@@ -82,9 +82,15 @@
 import store from '../store'
 import Introduction from './Introduction'
 import FeedbackModal from './FeedbackModal'
+store.subscribe((mutation, state) => {
+  localStorage.setItem('store', JSON.stringify(state))
+})
 export default {
   name: 'SleepTracker',
   store,
+  beforeCreate () {
+    this.$store.commit('initialiseStore')
+  },
   components: {
     Introduction,
     FeedbackModal
@@ -104,7 +110,6 @@ export default {
         return this.$store.getters.currentDailyScore
       },
       set: function (newValue) {
-        console.log(newValue)
       }
     }
   },
@@ -119,15 +124,6 @@ export default {
     giveFeedback: function (dataItem) {
       dataItem.saved = !dataItem.saved
       const payload = dataItem
-      // if (!dataItem.more_than_seven) { this.tips.push(dataItem.seven_suggestion) }
-      // if (!dataItem.rested) { this.tips.push(dataItem.rested_suggestion) }
-      // if (!dataItem.consistent_bedtime) { this.tips.push(dataItem.bedtime_suggestion) }
-      // if (!dataItem.consistent_waketime) { this.tips.push(dataItem.waketime_suggestion) }
-      // if (!dataItem.screentime_cutoff) { this.tips.push(dataItem.screentime_suggestion) }
-      // if (!dataItem.bright_lights) { this.tips.push(dataItem.lights_suggestion) }
-      // if (!dataItem.no_alcohol) { this.tips.push(dataItem.alcohol_suggestion) }
-      // if (!dataItem.no_caffeine) { this.tips.push(dataItem.caffeine_suggestion) }
-      // if (dataItem.daily_score === 20) { this.tips.push('Congrats! You got a perfect sleep score today!') }
       this.$store.dispatch('updateTips', payload)
     },
     showModal (dataItem) {
