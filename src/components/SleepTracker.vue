@@ -12,7 +12,8 @@
             @click.native.stop
             @change="updateScore(data.item, 'more_than_seven')"
             v-model="data.item.more_than_seven"
-            :disabled="data.item.saved"></b-form-checkbox>
+            :disabled="data.item.saved"
+            :button-varient="primary"></b-form-checkbox>
           </template>
           <template slot="rested" slot-scope="data">
             <b-form-checkbox
@@ -142,7 +143,4 @@ export default {
 
 <style scoped>
 
-.custom-control-input:hover {
-  cursor: pointer;
-}
 </style>
