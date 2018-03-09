@@ -5,6 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    why: {
+      saved: false,
+      text: 'I want to improve my sleep because...'
+    },
     fields: [
       {
         key: 'day',
@@ -210,6 +214,16 @@ export default new Vuex.Store({
           Object.assign(state, JSON.parse(localStorage.getItem('store')))
         )
       }
+    },
+    setWhy (state, payload) {
+      state.why.text = payload.text
+      state.why.saved = payload.saved
+    },
+    setWhyText (state, payload) {
+      state.why.text = payload
+    },
+    setWhySaved (state, payload) {
+      state.why.saved = payload
     }
   },
   actions: {
@@ -271,6 +285,16 @@ export default new Vuex.Store({
       if (!payload.no_caffeine) { tips.push(payload.caffeine_suggestion) }
       if (payload.daily_score === 20) { tips.push('Congrats! You got a perfect sleep score today!') }
       commit('setTips', tips)
+    },
+    updateWhy ({ commit }, payload) {
+      console.log('Payload', payload)
+      commit('setWhy', payload)
+    },
+    updateWhyText ({ commit }, payload) {
+      commit('setWhyText', payload)
+    },
+    updateWhySaved ({ commit }, payload) {
+      commit('setWhySaved', payload)
     }
   },
   getters: {
@@ -285,6 +309,15 @@ export default new Vuex.Store({
     },
     currentDailyScore: state => {
       return state.dailyScore
+    },
+    getWhy: state => {
+      return state.why
+    },
+    getWhyText: state => {
+      return state.why.text
+    },
+    whyIsSaved: state => {
+      return state.why.saved
     }
   }
 })
