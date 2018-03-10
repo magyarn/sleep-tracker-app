@@ -1,97 +1,91 @@
 <template>
   <b-container>
     <introduction></introduction>
-    <b-row>
-      <b-col>
-        <h2>My Why:</h2>
-        <p>
-          How is sleep impacting your life? What would you like to change?
-          Consider cranky mornings with your partner, afternoon slumps at work,
-          and and groggy.
-        </p>
-        <b-form-group>
-          <b-form-textarea
-          v-if="!whyIsSaved"
-          v-model="whyText"
-          :rows="3"
-          :max-rows="6">
-          </b-form-textarea>
-          <p v-else>{{whyText}}</p>
-          <b-button v-if="!whyIsSaved" @click="whyIsSaved=!whyIsSaved" class="mt-3">Save</b-button>
-          <b-button v-else @click="whyIsSaved=!whyIsSaved" class="mt-3">Edit</b-button>
-        </b-form-group>
+    <b-row class="mt-4">
+      <b-col class="journal-header">
+        <h2>My Sleep Journal</h2>
+        <b-btn v-b-modal.modal3>Add New Entry</b-btn>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col></b-col>
+    <b-row class="my-4">
+      <b-col>
+        <b-row>
+          <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
+            <b-card
+               class="mb-4"
+               no-body>
+               <b-card-body>
+                 <h3>Day 1</h3>
+                 <p>Hours you slept</p>
+                 <b-row>
+                   <span class="bonus-badge bonus-badge-empty m-2">🛌🏿</span>
+                   <span class="bonus-badge bonus-badge-empty m-2">⏰</span>
+                   <span class="bonus-badge bonus-badge-empty m-2">📵</span>
+                   <span class="bonus-badge bonus-badge-empty m-2">💡</span>
+                   <span class="bonus-badge bonus-badge-empty m-2">🍷</span>
+                   <span class="bonus-badge bonus-badge-empty m-2">☕</span>
+                 </b-row>
+               </b-card-body>
+               <b-card-footer style="padding: .75rem">
+                 <b-button v-b-modal.modal3 class="mr-2" variant="outline-secondary">Add New Entry</b-button>
+               </b-card-footer>
+            </b-card>
+          </b-col>
+          <b-col v-for="(entry, index) in entries" :key="index" xl="4" lg="6" md="12" sm="12" xs="12">
+            <b-card
+               class="mb-4"
+               no-body>
+               <b-card-body>
+                 <h3>Day {{index + 1}}</h3>
+                 <p>{{entry.hours}} hours
+                   <span v-if="entry.rested==0" class="rested-emoji">😩</span>
+                   <span v-if="entry.rested==1" class="rested-emoji">😞</span>
+                   <span v-if="entry.rested==2" class="rested-emoji">😐</span>
+                   <span v-if="entry.rested==3" class="rested-emoji">🙂</span>
+                   <span v-if="entry.rested==4" class="rested-emoji">🤗</span>
+                 </p>
+                 <b-row>
+                   <span v-if="entry.bedtime" class="bonus-badge m-2">🛌🏿</span>
+                   <span v-else class="bonus-badge bonus-badge-empty m-2">🛌🏿</span>
+                   <span v-if="entry.waketime" class="bonus-badge m-2">⏰</span>
+                   <span v-else class="bonus-badge bonus-badge-empty m-2">⏰</span>
+                   <span v-if="entry.screens" class="bonus-badge m-2">📵</span>
+                   <span v-else class="bonus-badge bonus-badge-empty m-2">📵</span>
+                   <span v-if="entry.brightLights" class="bonus-badge m-2">💡</span>
+                   <span v-else class="bonus-badge bonus-badge-empty m-2">💡</span>
+                   <span v-if="entry.noAlcohol" class="bonus-badge m-2">🍷</span>
+                   <span v-else class="bonus-badge bonus-badge-empty m-2">🍷</span>
+                   <span v-if="entry.noCaffeine" class="bonus-badge  m-2">☕</span>
+                   <span v-else class="bonus-badge bonus-badge-empty m-2">☕</span>
+                 </b-row>
+               </b-card-body>
+               <b-card-footer style="padding: .75rem">
+                 <b-button class="mr-2" variant="outline-secondary" @click="showEditDayModal(index)">Edit</b-button>
+                 <b-button class="mr-2" variant="outline-secondary" @click="deleteEntry(index)">Delete</b-button>
+               </b-card-footer>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-col>
     </b-row>
-    <b-row>
-      <b-col lg="12">
-        <b-table striped hover :items="allItems" :fields="allFields">
-          <template slot="day" slot-scope="data">
-            <p>{{data.index + 1}}</p>
-          </template>
-          <template slot="more_than_seven" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'more_than_seven')"
-            v-model="data.item.more_than_seven"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="rested" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'rested')"
-            v-model="data.item.rested"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="consistent_bedtime" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'consistent_bedtime')"
-            v-model="data.item.consistent_bedtime"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="consistent_waketime" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'consistent_waketime')"
-            v-model="data.item.consistent_waketime"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="screentime_cutoff" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'screentime_cutoff')"
-            v-model="data.item.screentime_cutoff"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="bright_lights" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'bright_lights')"
-            v-model="data.item.bright_lights"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="no_alcohol" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'no_alcohol')"
-            v-model="data.item.no_alcohol"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="no_caffeine" slot-scope="data">
-            <b-form-checkbox
-            @click.native.stop
-            @change="updateScore(data.item, 'no_caffeine')"
-            v-model="data.item.no_caffeine"
-            :disabled="data.item.saved"></b-form-checkbox>
-          </template>
-          <template slot="action" slot-scope="data">
-            <b-button v-if="!data.item.saved" @click="showModal(data.item)">Save</b-button>
-            <b-button v-else @click="data.item.saved=!data.item.saved">Edit</b-button>
-          </template>
-        </b-table>
+    <hr/>
+    <b-row class="my-4">
+      <b-col>
+        <h2>Sleep Strategies</h2>
+        <p>Review the strategies below. Do any of them make you think of habits
+          you’d like to change? Which sound most appealing to you? Pick four strategies
+          you’d like to try for the week.</p>
+        <b-row>
+          <b-col v-for="(strategy, index) in strategies" :key="index" lg="4" md="6" sm="12">
+            <b-card
+               :title="strategy.title"
+               lg="4"
+               class="mb-4"
+               style="height: 300px">
+               <p>{{strategy.text}}</p>
+            </b-card>
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
     <b-row>
@@ -99,6 +93,8 @@
       </b-col>
     </b-row>
     <feedback-modal ref="myModalRef"></feedback-modal>
+    <edit-day-modal ref="myModalRef2"></edit-day-modal>
+    <add-day-modal ref="myModalRef3"></add-day-modal>
   </b-container>
 </template>
 
@@ -106,6 +102,8 @@
 import store from '../store'
 import Introduction from './Introduction'
 import FeedbackModal from './FeedbackModal'
+import AddDayModal from './AddDayModal'
+import EditDayModal from './EditDayModal'
 store.subscribe((mutation, state) => {
   localStorage.setItem('store', JSON.stringify(state))
 })
@@ -117,7 +115,49 @@ export default {
   },
   components: {
     Introduction,
-    FeedbackModal
+    FeedbackModal,
+    AddDayModal,
+    EditDayModal
+  },
+  data () {
+    return {
+      strategies: this.$store.getters.strategies,
+      modalPage: 0,
+      hours: null,
+      hourOptions: [
+        {value: null, text: 'Please select a number'},
+        {value: 1, text: 1},
+        {value: 2, text: 2},
+        {value: 3, text: 3},
+        {value: 4, text: 4},
+        {value: 5, text: 5},
+        {value: 6, text: 6},
+        {value: 7, text: 7},
+        {value: 8, text: 8},
+        {value: 9, text: 9},
+        {value: 10, text: 10},
+        {value: 11, text: 11},
+        {value: 12, text: 12}
+      ],
+      rested: '',
+      restedOptions: [
+        {value: '0', text: '😩 Nope, I\'m exhausted'},
+        {value: '1', text: '😞 Not really'},
+        {value: '2', text: '😐 Somewhat'},
+        {value: '3', text: '🙂 Yep, I feel good'},
+        {value: '4', text: '🤗 Oh yeah! I feel great!'}
+      ],
+      bedtime: null,
+      yesNo: [
+        {value: true, text: 'Yes'},
+        {value: false, text: 'No'}
+      ],
+      waketime: null,
+      screens: null,
+      brightLights: null,
+      noAlcohol: null,
+      noCaffeine: null
+    }
   },
   computed: {
     allFields () {
@@ -136,29 +176,11 @@ export default {
       set: function (newValue) {
       }
     },
-    why: {
-      get: function () {
-        return this.$store.getters.getWhy
-      },
-      set: function (newValue) {
-        this.$store.dispatch('updateWhy', newValue)
-      }
+    entries () {
+      return this.$store.getters.entries
     },
-    whyText: {
-      get: function () {
-        return this.$store.getters.getWhyText
-      },
-      set: function (newValue) {
-        this.$store.dispatch('updateWhyText', newValue)
-      }
-    },
-    whyIsSaved: {
-      get: function () {
-        return this.$store.getters.whyIsSaved
-      },
-      set: function (newValue) {
-        return this.$store.dispatch('updateWhySaved', newValue)
-      }
+    hoursOnly () {
+      return this.$store.getters.hoursOnly
     }
   },
   methods: {
@@ -179,15 +201,88 @@ export default {
       this.dailyScore = dataItem.daily_score
       this.$refs.myModalRef.$refs.myModalRef.show()
     },
+    showEditDayModal (index) {
+      const entryToEdit = this.entries[index]
+      this.$store.dispatch('entryToEdit', entryToEdit)
+      this.$refs.myModalRef2.$refs.myModalRef2.show()
+    },
     closeModal: function () {
-      this.$refs.myModalRef.hide()
+      this.$refs.myModalRef3.hide()
       this.tips = []
       this.score = 0
+    },
+    modalPageIncrement () {
+      this.modalPage++
+    },
+    modalPageDecrement () {
+      this.modalPage--
+    },
+    addEntry () {
+      const entry = {
+        id: this.entries.length,
+        hours: this.hours,
+        rested: this.rested,
+        bedtime: this.bedtime,
+        waketime: this.waketime,
+        screens: this.screens,
+        brightLights: this.brightLights,
+        noAlcohol: this.noAlcohol,
+        noCaffeine: this.noCaffeine,
+        bonusPoints: 0
+      }
+      this.$store.dispatch('addEntry', entry)
+      this.$refs.myModalRef3.hide()
+      this.clearCurrentDataPoints()
+    },
+    deleteEntry (index) {
+      this.$store.dispatch('deleteEntry', index)
+    },
+    clearCurrentDataPoints () {
+      this.hours = null
+      this.rested = null
+      this.bedtime = null
+      this.waketime = null
+      this.screens = null
+      this.brightLights = null
+      this.noAlcohol = null
+      this.noCaffeine = null
+      this.modalPage = 0
     }
   }
 }
 </script>
 
 <style scoped>
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
+.bonus-badge {
+  display: inline-block;
+  background-color: white;
+  border: 1px solid #F0F0F0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: .5rem;
+  padding-left: .3rem;
+  font-size: 1rem;
+}
+
+.bonus-badge-empty {
+  box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.175);
+  background-color: #F0F0F0;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.hours {
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+}
 </style>
