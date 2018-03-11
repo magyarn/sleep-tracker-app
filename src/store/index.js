@@ -270,6 +270,9 @@ export default new Vuex.Store({
     },
     deleteEntry (state, payload) {
       state.entries.splice(payload, 1)
+    },
+    clearEntries (state) {
+      state.entries = []
     }
   },
   actions: {
@@ -349,6 +352,9 @@ export default new Vuex.Store({
     },
     deleteEntry ({ commit }, payload) {
       commit('deleteEntry', payload)
+    },
+    clearEntries ({ commit }) {
+      commit('clearEntries')
     }
   },
   getters: {
@@ -386,6 +392,11 @@ export default new Vuex.Store({
     },
     entryToEdit: state => {
       return state.entryToEdit
+    },
+    averageHoursOfSleep: state => {
+      const totalHours = state.entries.reduce((sum, entry) => sum + entry.hours, 0)
+      const numberOfEntries = state.entries.length
+      return Math.round(totalHours / numberOfEntries, 1)
     }
   }
 })

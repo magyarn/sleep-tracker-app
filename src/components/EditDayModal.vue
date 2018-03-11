@@ -1,5 +1,13 @@
 <template>
-  <b-modal ref="myModalRef2" id="modal2" title="Edit Entry" hide-footer no-close-on-backdrop no-close-on-esc>
+  <b-modal
+    ref="myModalRef2"
+    id="modal2"
+    title="Edit Entry"
+    header-text-variant="dark"
+    body-text-variant="dark"
+    hide-footer
+    no-close-on-backdrop
+    no-close-on-esc>
     <b-form-group v-if="modalPage==0">
       <p>How many hours of sleep did you get last night? 🤔</p>
       <b-form-select v-model="entryToEdit.hours" :options="hourOptions"/>
@@ -92,7 +100,6 @@ export default {
       return this.$store.getters.entries
     },
     entryToEdit () {
-      console.log(this.$store.getters.entryToEdit)
       return this.$store.getters.entryToEdit
     }
   },

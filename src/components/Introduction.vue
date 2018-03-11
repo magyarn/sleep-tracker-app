@@ -1,9 +1,10 @@
 <template>
-    <section>
-      <b-row class="mt-4">
+  <main class="intro-wrapper mt-5">
+    <b-container>
+      <b-row class="pt-4">
         <b-col>
-          <h2>Why work on your sleep habits?</h2>
-          <p>We’ve all heard sleep is important, but may not know why. We may not
+          <h2 class="my-4">Why work on your sleep habits?</h2>
+          <p class="pt-4">We’ve all heard sleep is important, but may not know why. We may not
             know if we need to change our sleep, but many of us live with sleep
             deprivation without knowing it.</p>
           <p>Sleep matters.</p>
@@ -24,18 +25,26 @@
             <li>Manage stress more easily</li>
           </ul>
         </b-col>
-        <my-why class="mb-4"></my-why>
       </b-row>
-      <hr/>
-    </section>
+    </b-container>
+  </main>
 </template>
 
 <script>
-import MyWhy from './MyWhy'
 export default {
-  name: 'Introduction',
-  components: {
-    MyWhy
-  }
+  name: 'Introduction'
 }
 </script>
+
+<style lang="scss">
+@import '../main.scss';
+.intro-wrapper {
+  background-image: url('../../static/img/background.png');
+  background-repeat: repeat-y;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
+  color: $white;
+}
+</style>

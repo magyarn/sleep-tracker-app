@@ -1,109 +1,188 @@
 <template>
-  <b-container>
-    <introduction></introduction>
-    <b-row class="mt-4">
-      <b-col class="journal-header">
-        <h2>My Sleep Journal</h2>
-        <b-btn v-b-modal.modal3>Add New Entry</b-btn>
-      </b-col>
-    </b-row>
-    <b-row class="my-4">
-      <b-col>
-        <b-row>
-          <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
-            <b-card
-               class="mb-4"
-               no-body>
-               <b-card-body>
-                 <h3>Day 1</h3>
-                 <p>Hours you slept</p>
-                 <b-row>
-                   <span class="bonus-badge bonus-badge-empty m-2">🛌🏿</span>
-                   <span class="bonus-badge bonus-badge-empty m-2">⏰</span>
-                   <span class="bonus-badge bonus-badge-empty m-2">📵</span>
-                   <span class="bonus-badge bonus-badge-empty m-2">💡</span>
-                   <span class="bonus-badge bonus-badge-empty m-2">🍷</span>
-                   <span class="bonus-badge bonus-badge-empty m-2">☕</span>
-                 </b-row>
-               </b-card-body>
-               <b-card-footer style="padding: .75rem">
-                 <b-button v-b-modal.modal3 class="mr-2" variant="outline-secondary">Add New Entry</b-button>
-               </b-card-footer>
-            </b-card>
-          </b-col>
-          <b-col v-for="(entry, index) in entries" :key="index" xl="4" lg="6" md="12" sm="12" xs="12">
-            <b-card
-               class="mb-4"
-               no-body>
-               <b-card-body>
-                 <h3>Day {{index + 1}}</h3>
-                 <p>{{entry.hours}} hours
-                   <span v-if="entry.rested==0" class="rested-emoji">😩</span>
-                   <span v-if="entry.rested==1" class="rested-emoji">😞</span>
-                   <span v-if="entry.rested==2" class="rested-emoji">😐</span>
-                   <span v-if="entry.rested==3" class="rested-emoji">🙂</span>
-                   <span v-if="entry.rested==4" class="rested-emoji">🤗</span>
-                 </p>
-                 <b-row>
-                   <span v-if="entry.bedtime" class="bonus-badge m-2">🛌🏿</span>
-                   <span v-else class="bonus-badge bonus-badge-empty m-2">🛌🏿</span>
-                   <span v-if="entry.waketime" class="bonus-badge m-2">⏰</span>
-                   <span v-else class="bonus-badge bonus-badge-empty m-2">⏰</span>
-                   <span v-if="entry.screens" class="bonus-badge m-2">📵</span>
-                   <span v-else class="bonus-badge bonus-badge-empty m-2">📵</span>
-                   <span v-if="entry.brightLights" class="bonus-badge m-2">💡</span>
-                   <span v-else class="bonus-badge bonus-badge-empty m-2">💡</span>
-                   <span v-if="entry.noAlcohol" class="bonus-badge m-2">🍷</span>
-                   <span v-else class="bonus-badge bonus-badge-empty m-2">🍷</span>
-                   <span v-if="entry.noCaffeine" class="bonus-badge  m-2">☕</span>
-                   <span v-else class="bonus-badge bonus-badge-empty m-2">☕</span>
-                 </b-row>
-               </b-card-body>
-               <b-card-footer style="padding: .75rem">
-                 <b-button class="mr-2" variant="outline-secondary" @click="showEditDayModal(index)">Edit</b-button>
-                 <b-button class="mr-2" variant="outline-secondary" @click="deleteEntry(index)">Delete</b-button>
-               </b-card-footer>
-            </b-card>
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-    <hr/>
-    <b-row class="my-4">
-      <b-col>
-        <h2>Sleep Strategies</h2>
-        <p>Review the strategies below. Do any of them make you think of habits
-          you’d like to change? Which sound most appealing to you? Pick four strategies
-          you’d like to try for the week.</p>
-        <b-row>
-          <b-col v-for="(strategy, index) in strategies" :key="index" lg="4" md="6" sm="12">
-            <b-card
-               :title="strategy.title"
-               lg="4"
-               class="mb-4"
-               style="height: 300px">
-               <p>{{strategy.text}}</p>
-            </b-card>
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-      </b-col>
-    </b-row>
-    <feedback-modal ref="myModalRef"></feedback-modal>
-    <edit-day-modal ref="myModalRef2"></edit-day-modal>
-    <add-day-modal ref="myModalRef3"></add-day-modal>
-  </b-container>
+  <main class="sleep-tracker-wrapper mt-5">
+    <b-container>
+      <b-row class="pt-4">
+        <b-col class="journal-header">
+          <h2 class="mt-4">My Sleep Journal</h2>
+          <b-btn v-if="entries.length <7" v-b-modal.modal3 class="btn-success">Add New Entry</b-btn>
+          <b-btn v-else class="btn-outline-success" v-b-modal.modal4>Clear Entries</b-btn>
+        </b-col>
+      </b-row>
+      <b-card-group deck class="my-4">
+        <b-card class="sleep-entry-card">
+          <h3>My Statistics</h3>
+          <p>Average: {{averageHoursOfSleep}} hours</p>
+          <b-row>
+            <b-col xs="5" sm="5" md="5" lg="5" xl="5">
+              <ul class="stat-list">
+                <li>Day</li>
+                <li>Consistent bedtime</li>
+                <li>Consistent waketime</li>
+                <li>No screens (1 hour)</li>
+                <li>No bright lights</li>
+                <li>No alcohol (3 hours)</li>
+                <li>No coffee (7 hours)</li>
+              </ul>
+            </b-col>
+            <b-col v-for="(entry, index) in entries" :key="index" xs="1" sm="1" md="1" lg="1" xl="1">
+              <ul class="stat-list">
+                <li>{{index + 1}}</li>
+                <li v-if="entry.bedtime" >
+                  <span class="performed-habit"></span>
+                </li>
+                <li v-else>
+                  <span  class="failed-habit"></span>
+                </li>
+                <li v-if="entry.waketime">
+                  <span class="performed-habit"></span>
+                </li>
+                <li v-else>
+                  <span  class="failed-habit"></span>
+                </li>
+                <li v-if="entry.screens">
+                  <span class="performed-habit"></span>
+                </li>
+                <li v-else>
+                  <span  class="failed-habit"></span>
+                </li>
+                <li v-if="entry.brightLights">
+                  <span class="performed-habit"></span>
+                </li>
+                <li v-else>
+                  <span  class="failed-habit"></span>
+                </li>
+                <li v-if="entry.noAlcohol">
+                  <span class="performed-habit"></span>
+                </li>
+                <li v-else>
+                  <span  class="failed-habit"></span>
+                </li>
+                <li v-if="entry.noCaffeine">
+                  <span class="performed-habit"></span>
+                </li>
+                <li v-else>
+                  <span  class="failed-habit"></span>
+                </li>
+              </ul>
+            </b-col>
+          </b-row>
+        </b-card>
+        <b-card class="sleep-entry-card">
+          <my-why></my-why>
+        </b-card>
+      </b-card-group>
+      <b-row class="my-4">
+        <b-col>
+          <b-row>
+            <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
+              <b-card
+                 class="mb-4 sleep-entry-card"
+                 no-body>
+                 <b-card-body>
+                   <h3>Day 1</h3>
+                   <p>Hours you slept</p>
+                   <ul class="habit-list">
+                     <li class="failed">
+                       <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
+                     </li>
+                     <li class="failed">
+                       <img src="../../static/img/alarm-white.png" alt="alarm" class="bonus-badge">
+                     </li>
+                     <li class="failed">
+                       <img src="../../static/img/phone-white.png" alt="phone" class="bonus-badge">
+                     </li>
+                     <li class="failed">
+                       <img src="../../static/img/light-white.png" alt="light" class="bonus-badge">
+                     </li>
+                     <li class="failed">
+                       <img src="../../static/img/wine-white.png" alt="wine glass" class="bonus-badge">
+                     </li>
+                     <li class="failed">
+                       <img src="../../static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
+                     </li>
+                   </ul>
+                 </b-card-body>
+                 <b-card-footer style="padding: .75rem">
+                   <b-button v-b-modal.modal3 class="mr-2" variant="outline-success">Add New Entry</b-button>
+                 </b-card-footer>
+              </b-card>
+            </b-col>
+            <b-col v-for="(entry, index) in entries" :key="index" xl="4" lg="6" md="12" sm="12" xs="12">
+              <b-card
+                 class="mb-4 sleep-entry-card"
+                 no-body>
+                 <b-card-body>
+                   <h3>Day {{index + 1}}</h3>
+                   <p>{{entry.hours}} hours
+                     <span v-if="entry.rested==0" class="rested-emoji">😩</span>
+                     <span v-if="entry.rested==1" class="rested-emoji">😞</span>
+                     <span v-if="entry.rested==2" class="rested-emoji">😐</span>
+                     <span v-if="entry.rested==3" class="rested-emoji">🙂</span>
+                     <span v-if="entry.rested==4" class="rested-emoji">🤗</span>
+                   </p>
+                   <ul class="habit-list">
+                     <li v-if="entry.bedtime" class="performed">
+                       <img src="../../static/img/moon.png" alt="moon" class="bonus-badge">
+                     </li>
+                     <li v-else class="failed">
+                       <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
+                     </li>
+                     <li v-if="entry.waketime" class="performed">
+                       <img src="../../static/img/alarm.png" alt="alarm clock" class="bonus-badge">
+                     </li>
+                     <li v-else class="failed">
+                       <img src="../../static/img/alarm-white.png" alt="alarm" class="bonus-badge">
+                     </li>
+                     <li v-if="entry.screens" class="performed">
+                       <img src="../../static/img/phone.png" alt="phone" class="bonus-badge">
+                     </li>
+                     <li v-else class="failed">
+                       <img src="../../static/img/phone-white.png" alt="phone" class="bonus-badge">
+                     </li>
+                     <li v-if="entry.brightLights" class="performed">
+                       <img src="../../static/img/light.png" alt="light" class="bonus-badge">
+                     </li>
+                     <li v-else class="failed">
+                       <img src="../../static/img/light-white.png" alt="light" class="bonus-badge">
+                     </li>
+                     <li v-if="entry.noAlcohol" class="performed">
+                       <img src="../../static/img/wine.png" alt="wine glass" class="bonus-badge">
+                     </li>
+                     <li v-else class="failed">
+                       <img src="../../static/img/wine-white.png" alt="wine glass" class="bonus-badge">
+                     </li>
+                     <li v-if="entry.noCaffeine" class="performed">
+                       <img src="../../static/img/coffee.png" alt="coffee cup" class="bonus-badge">
+                     </li>
+                     <li v-else class="failed">
+                       <img src="../../static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
+                     </li>
+                   </ul>
+                 </b-card-body>
+                 <b-card-footer style="padding: .75rem">
+                   <b-button class="mr-2" variant="outline-success" @click="showEditDayModal(index)">Edit</b-button>
+                   <b-button class="mr-2" variant="outline-success" @click="deleteEntry(index)">Delete</b-button>
+                 </b-card-footer>
+              </b-card>
+            </b-col>
+          </b-row>
+        </b-col>
+      </b-row>
+      <feedback-modal ref="myModalRef"></feedback-modal>
+      <edit-day-modal ref="myModalRef2"></edit-day-modal>
+      <add-day-modal ref="myModalRef3"></add-day-modal>
+      <clear-entries-modal ref="myModalRef4"></clear-entries-modal>
+    </b-container>
+  </main>
 </template>
 
 <script>
 import store from '../store'
-import Introduction from './Introduction'
+import MyWhy from './MyWhy'
 import FeedbackModal from './FeedbackModal'
 import AddDayModal from './AddDayModal'
 import EditDayModal from './EditDayModal'
+import ClearEntriesModal from './ClearEntriesModal'
 store.subscribe((mutation, state) => {
   localStorage.setItem('store', JSON.stringify(state))
 })
@@ -114,10 +193,11 @@ export default {
     this.$store.commit('initialiseStore')
   },
   components: {
-    Introduction,
+    MyWhy,
     FeedbackModal,
     AddDayModal,
-    EditDayModal
+    EditDayModal,
+    ClearEntriesModal
   },
   data () {
     return {
@@ -181,6 +261,9 @@ export default {
     },
     hoursOnly () {
       return this.$store.getters.hoursOnly
+    },
+    averageHoursOfSleep () {
+      return this.$store.getters.averageHoursOfSleep
     }
   },
   methods: {
@@ -252,7 +335,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../main.scss';
+.sleep-tracker-wrapper {
+  background-image: url('../../static/img/background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 100%;
+  color: $white;
+}
+
+.sleep-entry-card {
+  background: $darkBlue2;
+}
+
 .journal-header {
   display: flex;
   justify-content: space-between;
@@ -260,24 +358,61 @@ export default {
   margin-bottom: 1rem;
 }
 
-.bonus-badge {
+.habit-list, .stat-list {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.habit-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.performed-habit {
   display: inline-block;
-  background-color: white;
-  border: 1px solid #F0F0F0;
-  height: 40px;
-  width: 40px;
   border-radius: 50%;
-  text-align: center;
-  padding-top: .5rem;
-  padding-left: .3rem;
-  font-size: 1rem;
+  height: 15px;
+  width: 15px;
+  background-color: $green;
+}
+
+.failed-habit {
+  display: inline-block;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  border: 1px solid $elephantGrey;
+}
+
+.habit-list li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .25rem;
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  &.performed {
+    border: 1px solid $green;
+  }
+  &.failed {
+    border: 1px solid $elephantGrey;
+  }
+}
+
+.bonus-badge {
+  height: 20px;
+  width: 20px;
 }
 
 .bonus-badge-empty {
   box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.175);
-  background-color: #F0F0F0;
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
+  background-color: $darkBlue1;
+  border: 3px solid $white;
 }
 
 .hours {

@@ -1,24 +1,26 @@
 <template>
-    <b-col xs="12" sm="12" md="6" lg="6" xl="6" style="background-color: #F0F0F0"
-    class="p-4">
-      <h2>My Why:</h2>
-      <p v-if="!whyIsSaved">
+    <div v-if="!whyIsSaved" class="my-why-window">
+      <h3>My Why</h3>
+      <p>
         How is sleep impacting your life? What would you like to change?
         Consider cranky mornings with your partner, afternoon slumps at work,
         and and groggy.
       </p>
       <b-form-group>
         <b-form-textarea
-        v-if="!whyIsSaved"
         v-model="whyText"
         :rows="3"
         :max-rows="6">
         </b-form-textarea>
-        <p v-else>{{whyText}}</p>
-        <b-button v-if="!whyIsSaved" @click="whyIsSaved=!whyIsSaved" class="mt-3">Save</b-button>
-        <b-button v-else @click="whyIsSaved=!whyIsSaved" class="mt-3">Edit</b-button>
+        <b-button @click="whyIsSaved=!whyIsSaved" class="mt-3" variant="outline-success">Save</b-button>
       </b-form-group>
-    </b-col>
+    </div>
+    <div v-else class="my-why-window">
+      <h3>My Why</h3>
+        <p>{{whyText}}</p>
+        <b-button @click="whyIsSaved=!whyIsSaved" class="mt-3" variant="outline-secondary">Edit</b-button>
+      </b-form-group>
+    </div>
 </template>
 
 <script>
@@ -55,5 +57,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../main.scss';
+.my-why-window {
+  background-color: $darkBlue2;
+  color: $white;
+  border-radius: $radius;
+}
 </style>

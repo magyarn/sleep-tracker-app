@@ -1,7 +1,17 @@
 <template>
   <header>
     <b-container>
-      <p class="site-name">#SleepChallenge</p>
+      <b-navbar toggleable class="sleep-nav px-0" type="dark">
+        <b-navbar-brand to="/">#SleepChallenge</b-navbar-brand>
+        <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
+        <b-collapse is-nav id="nav_dropdown_collapse">
+          <b-navbar-nav role="navigation" class="ml-auto">
+            <b-nav-item to="/" exact active-class="sleep-active-nav-item">Home</b-nav-item>
+            <b-nav-item to="/sleep-strategies" exact active-class="sleep-active-nav-item">Sleep Strategies</b-nav-item>
+            <b-nav-item to="/sleep-journal" exact active-class="sleep-active-nav-item">My Sleep Journal</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
     </b-container>
   </header>
 </template>
@@ -12,13 +22,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../main.scss';
 header {
-  box-shadow: 0 3px 3px rgba(0,0,0,.175);
+  position: fixed;
+  top: 0;
+  background-color: $darkBlue1;
+  width: 100%;
+  color: $white;
+  z-index: 1000;
+}
+
+.sleep-nav {
+  background-color: $darkBlue1;
 }
 
 .site-name {
   font-size: 1.3rem;
-  padding: 1rem 0;
+  padding: 2rem 0;
+}
+
+.sleep-active-nav-item {
+  color: $green;
 }
 </style>
