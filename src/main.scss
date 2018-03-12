@@ -2,7 +2,7 @@
 $black: #000;
 $darkBlue1: #192135;
 $darkBlue2: #121826;
-$elephantGrey: #57637F;
+$elephantGrey: #B0B7C9;
 $lightBlue: #5A97FF;
 $gradientBlue: linear-gradient($darkBlue1, $darkBlue2);
 $green: #30A64A;
@@ -29,6 +29,18 @@ body, html {
   background: none;
   border: 1px solid $darkBlue2;
   color: $darkBlue2;
+}
+
+.btn-outline-white {
+  border: 1px solid $white;
+  color: $white;
+  transition: all .2s ease;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    background-color: $white;
+    color: $darkBlue1;
+  }
 }
 
 .nav-link.active {

@@ -11,195 +11,6 @@ export default new Vuex.Store({
     },
     entries: [],
     entryToEdit: null,
-    fields: [
-      {
-        key: 'day',
-        label: 'Day'
-      },
-      {
-        key: 'more_than_seven',
-        label: 'Did you get more than 7 hours of sleep last night? <p class="">6 pts</p>'
-      },
-      {
-        key: 'rested',
-        label: 'Do you feel well-rested today? <p class="">3 pts</p>'
-      },
-      {
-        key: 'consistent_bedtime',
-        label: 'Was your bedtime within one hour of yesterday\'s? <p class="">3 pts</p>'
-      },
-      {
-        key: 'consistent_waketime',
-        label: 'Was your wake time within one hour of yesterday\'s? <p class="">2 pts</p>'
-      },
-      {
-        key: 'screentime_cutoff',
-        label: 'Did you stop using digital screens at least one hour before bed? <p class="">3 pts</p>'
-      },
-      {
-        key: 'bright_lights',
-        label: 'Did you avoid bright lights for an hour before bed? <p class="">1 pt</p>'
-      },
-      {
-        key: 'no_alcohol',
-        label: 'Did you avoid alcohol for 3 hours before bed? <p class="">1 pt</p>'
-      },
-      {
-        key: 'no_caffeine',
-        label: 'Did you avoid caffeine for 7 hours before bed? <p class="">1 pt</p>'
-      },
-      {
-        key: 'daily_score',
-        label: 'Daily Score',
-        sortable: false
-      },
-      {
-        key: 'action',
-        label: 'Action'
-      }
-    ],
-    items: [
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      },
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      },
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      },
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      },
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      },
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      },
-      {
-        more_than_seven: false,
-        seven_suggestion: 'Try to get a bit more sleep tonight!',
-        rested: false,
-        rested_suggestion: 'Avoid oversleeping.',
-        consistent_bedtime: false,
-        bedtime_suggestion: 'Aim for lights-out around the same time tonight.',
-        consistent_waketime: false,
-        waketime_suggestion: 'Try getting up close to the same time tomorrow.',
-        screentime_cutoff: false,
-        screentime_suggestion: 'Power down electronics a bit earlier.',
-        bright_lights: false,
-        lights_suggestion: 'Consider dimming the lights earlier.',
-        no_alcohol: false,
-        alcohol_suggestion: 'Avoid alcohol if you\'re close to bedtime.',
-        no_caffeine: false,
-        caffeine_suggestion: 'Avoid caffeine if you\'re close to bedtime.',
-        daily_score: 0,
-        saved: false
-      }
-    ],
     tips: [],
     dailyScore: 0,
     strategies: [
@@ -397,6 +208,24 @@ export default new Vuex.Store({
       const totalHours = state.entries.reduce((sum, entry) => sum + entry.hours, 0)
       const numberOfEntries = state.entries.length
       return Math.round(totalHours / numberOfEntries, 1)
+    },
+    bedtimeStreak: state => {
+      return state.entries.map(entry => entry.bedtime)
+    },
+    waketimeStreak: state => {
+      return state.entries.map(entry => entry.waketime)
+    },
+    screentimeStreak: state => {
+      return state.entries.map(entry => entry.screens)
+    },
+    brightLightsStreak: state => {
+      return state.entries.map(entry => entry.brightLights)
+    },
+    noAlcoholStreak: state => {
+      return state.entries.map(entry => entry.noAlcohol)
+    },
+    noCaffeineStreak: state => {
+      return state.entries.map(entry => entry.noCaffeine)
     }
   }
 })

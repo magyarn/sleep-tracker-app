@@ -3,67 +3,83 @@
     <b-container>
       <b-row class="pt-4">
         <b-col class="journal-header">
-          <h2 class="mt-4">My Sleep Journal</h2>
+          <h2 class="my-4 bm">My Sleep Journal</h2>
           <b-btn v-if="entries.length <7" v-b-modal.modal3 class="btn-success">Add New Entry</b-btn>
-          <b-btn v-else class="btn-outline-success" v-b-modal.modal4>Clear Entries</b-btn>
+          <b-btn v-else class="btn-outline-danger" v-b-modal.modal4>Clear Entries</b-btn>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <p>Below is a private journal for recording your sleep habits and goals. You can return here
+          anytime in the future and your entries will still be here.</p>
         </b-col>
       </b-row>
       <b-card-group deck class="my-4">
         <b-card class="sleep-entry-card">
           <h3>My Statistics</h3>
-          <p>Average: {{averageHoursOfSleep}} hours</p>
-          <b-row>
-            <b-col xs="5" sm="5" md="5" lg="5" xl="5">
+          <p v-if="averageHoursOfSleep">Average: {{averageHoursOfSleep}} hours</p>
+          <p v-else>Average: Nothing to report yet</p>
+          <b-row class="desktop-stats">
+            <b-col>
               <ul class="stat-list">
-                <li>Day</li>
-                <li>Consistent bedtime</li>
-                <li>Consistent waketime</li>
-                <li>No screens (1 hour)</li>
-                <li>No bright lights</li>
-                <li>No alcohol (3 hours)</li>
-                <li>No coffee (7 hours)</li>
+                <li>
+                  <b-row v-for="(category, index) in getStreaks()" :key="index">
+                    <b-col lg="5" xl="5">
+                      <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
+                      <p v-else>{{streakLabels[index]}}</p>
+                    </b-col>
+                    <b-col v-if="index==0" class="desktop-days-row" lg="7" xl="7">
+                      <ul class="stat-streak">
+                        <li v-for="(day, index) in days" :key="index">{{day + 1}}</li>
+                      </ul>
+                    </b-col>
+                    <b-col v-else lg="7" xl="7">
+                      <ul class="stat-streak">
+                        <li v-for="day in days" :key="day">
+                          <span v-if="category[day]" class="performed-habit"></span>
+                          <span v-else class="failed-habit"></span>
+                        </li>
+                      </ul>
+                    </b-col>
+                  </b-row>
+                </li>
               </ul>
             </b-col>
-            <b-col v-for="(entry, index) in entries" :key="index" xs="1" sm="1" md="1" lg="1" xl="1">
+          </b-row>
+          <b-row class="mobile-stats">
+            <b-col>
               <ul class="stat-list">
-                <li>{{index + 1}}</li>
-                <li v-if="entry.bedtime" >
-                  <span class="performed-habit"></span>
-                </li>
-                <li v-else>
-                  <span  class="failed-habit"></span>
-                </li>
-                <li v-if="entry.waketime">
-                  <span class="performed-habit"></span>
-                </li>
-                <li v-else>
-                  <span  class="failed-habit"></span>
-                </li>
-                <li v-if="entry.screens">
-                  <span class="performed-habit"></span>
-                </li>
-                <li v-else>
-                  <span  class="failed-habit"></span>
-                </li>
-                <li v-if="entry.brightLights">
-                  <span class="performed-habit"></span>
-                </li>
-                <li v-else>
-                  <span  class="failed-habit"></span>
-                </li>
-                <li v-if="entry.noAlcohol">
-                  <span class="performed-habit"></span>
-                </li>
-                <li v-else>
-                  <span  class="failed-habit"></span>
-                </li>
-                <li v-if="entry.noCaffeine">
-                  <span class="performed-habit"></span>
-                </li>
-                <li v-else>
-                  <span  class="failed-habit"></span>
+                <li>
+                  <b-row v-for="(category, index) in getStreaks()" :key="index">
+                    <b-col lg="5" xl="5">
+                      <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
+                      <p v-if="index > 0 && index <=2 && !showingAllStats">{{streakLabels[index]}}</p>
+                      <p v-if="index > 0 && showingAllStats">{{streakLabels[index]}}</p>
+                    </b-col>
+                    <b-col v-if="index==0" class="desktop-days-row" lg="7" xl="7">
+                      <ul class="stat-streak">
+                        <li v-for="(day, index) in days" :key="index">{{day + 1}}</li>
+                      </ul>
+                    </b-col>
+                    <b-col v-else lg="7" xl="7">
+                      <ul class="stat-streak">
+                        <li v-if="index <=2 && !showingAllStats" v-for="day in days" :key="day">
+                          <p class="mobile-day-header">{{day + 1}}</p>
+                          <span v-if="category[day]" class="performed-habit"></span>
+                          <span v-else class="failed-habit"></span>
+                        </li>
+                        <li v-if="showingAllStats" v-for="day in days" :key="day">
+                          <p class="mobile-day-header">{{day + 1}}</p>
+                          <span v-if="category[day]" class="performed-habit"></span>
+                          <span v-else class="failed-habit"></span>
+                        </li>
+                      </ul>
+                    </b-col>
+                  </b-row>
                 </li>
               </ul>
+              <b-button v-if="!showingAllStats" class="btn-outline-white mt-4" @click="showMoreStats()">Show More Statistics</b-button>
+              <b-button v-else class="btn-outline-white mt-4" @click="showFewerStats()">Show Fewer Statistics</b-button>
             </b-col>
           </b-row>
         </b-card>
@@ -80,7 +96,7 @@
                  no-body>
                  <b-card-body>
                    <h3>Day 1</h3>
-                   <p>Hours you slept</p>
+                   <p>Nothing to report yet</p>
                    <ul class="habit-list">
                      <li class="failed">
                        <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
@@ -113,12 +129,12 @@
                  no-body>
                  <b-card-body>
                    <h3>Day {{index + 1}}</h3>
-                   <p>{{entry.hours}} hours
-                     <span v-if="entry.rested==0" class="rested-emoji">😩</span>
-                     <span v-if="entry.rested==1" class="rested-emoji">😞</span>
-                     <span v-if="entry.rested==2" class="rested-emoji">😐</span>
-                     <span v-if="entry.rested==3" class="rested-emoji">🙂</span>
-                     <span v-if="entry.rested==4" class="rested-emoji">🤗</span>
+                   <p>{{entry.hours}} hours •
+                     <span v-if="entry.rested==0">Exhausted</span>
+                     <span v-if="entry.rested==1">Not well rested</span>
+                     <span v-if="entry.rested==2">Somewhat rested</span>
+                     <span v-if="entry.rested==3">Pretty rested</span>
+                     <span v-if="entry.rested==4">Very well rested</span>
                    </p>
                    <ul class="habit-list">
                      <li v-if="entry.bedtime" class="performed">
@@ -160,8 +176,8 @@
                    </ul>
                  </b-card-body>
                  <b-card-footer style="padding: .75rem">
-                   <b-button class="mr-2" variant="outline-success" @click="showEditDayModal(index)">Edit</b-button>
-                   <b-button class="mr-2" variant="outline-success" @click="deleteEntry(index)">Delete</b-button>
+                   <b-button class="mr-2 btn-outline-white" @click="showEditDayModal(index)">Edit</b-button>
+                   <b-button class="mr-2" variant="outline-danger" @click="deleteEntry(index)">Delete</b-button>
                  </b-card-footer>
               </b-card>
             </b-col>
@@ -201,6 +217,17 @@ export default {
   },
   data () {
     return {
+      days: [0, 1, 2, 3, 4, 5, 6],
+      streakLabels: [
+        'Days',
+        'Consistent bedtime',
+        'Consistent waketime',
+        'No screens (1 hour)',
+        'No bright lights',
+        'No alcohol (3 hours)',
+        'No caffeine (7 hours)'
+      ],
+      showingAllStats: false,
       strategies: this.$store.getters.strategies,
       modalPage: 0,
       hours: null,
@@ -264,6 +291,24 @@ export default {
     },
     averageHoursOfSleep () {
       return this.$store.getters.averageHoursOfSleep
+    },
+    bedtimeStreak () {
+      return this.$store.getters.bedtimeStreak
+    },
+    waketimeStreak () {
+      return this.$store.getters.waketimeStreak
+    },
+    screentimeStreak () {
+      return this.$store.getters.screentimeStreak
+    },
+    brightLightsStreak () {
+      return this.$store.getters.brightLightsStreak
+    },
+    noAlcoholStreak () {
+      return this.$store.getters.noAlcoholStreak
+    },
+    noCaffeineStreak () {
+      return this.$store.getters.noCaffeineStreak
     }
   },
   methods: {
@@ -330,7 +375,27 @@ export default {
       this.noAlcohol = null
       this.noCaffeine = null
       this.modalPage = 0
+    },
+    getStreaks () {
+      return [
+        this.days,
+        this.bedtimeStreak,
+        this.waketimeStreak,
+        this.screentimeStreak,
+        this.brightLightsStreak,
+        this.noAlcoholStreak,
+        this.noCaffeineStreak
+      ]
+    },
+    showFewerStats () {
+      this.showingAllStats = false
+    },
+    showMoreStats () {
+      this.showingAllStats = true
     }
+  },
+  mounted: function () {
+    this.getStreaks()
   }
 }
 </script>
@@ -358,17 +423,59 @@ export default {
   margin-bottom: 1rem;
 }
 
-.habit-list, .stat-list {
+.habit-list,
+.stat-list,
+.stat-streak {
   padding-left: 0;
   list-style: none;
   margin: 0;
 }
 
-.habit-list {
+.desktop-stats {
+  @media (max-width: 989px) {
+    display: none;
+  }
+}
+
+.mobile-stats {
+  @media (min-width: 989px) {
+    display: none;
+  }
+}
+
+.stat-list p {
+  margin: 0;
+  @media (max-width: 989px) {
+    margin-top: 1rem;
+  }
+}
+
+.desktop-days-row {
+  @media (max-width: 989px) {
+    display: none;
+  }
+}
+
+.centered {
+  text-align: center;
+}
+
+.habit-list,
+.stat-streak {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  .mobile-day-header {
+    display: none;
+    @media (max-width: 989px) {
+      display: block;
+      color: $elephantGrey;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
 
 .performed-habit {
@@ -409,15 +516,4 @@ export default {
   width: 20px;
 }
 
-.bonus-badge-empty {
-  box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.175);
-  background-color: $darkBlue1;
-  border: 3px solid $white;
-}
-
-.hours {
-  font-size: 4rem;
-  margin: 0;
-  padding: 0;
-}
 </style>

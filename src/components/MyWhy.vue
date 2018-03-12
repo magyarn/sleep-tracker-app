@@ -4,7 +4,7 @@
       <p>
         How is sleep impacting your life? What would you like to change?
         Consider cranky mornings with your partner, afternoon slumps at work,
-        and and groggy.
+        and feeling groggy.
       </p>
       <b-form-group>
         <b-form-textarea
@@ -12,14 +12,13 @@
         :rows="3"
         :max-rows="6">
         </b-form-textarea>
-        <b-button @click="whyIsSaved=!whyIsSaved" class="mt-3" variant="outline-success">Save</b-button>
+        <b-button @click="whyIsSaved=!whyIsSaved" class="mt-3 btn-outline-success">Save</b-button>
       </b-form-group>
     </div>
     <div v-else class="my-why-window">
       <h3>My Why</h3>
         <p>{{whyText}}</p>
-        <b-button @click="whyIsSaved=!whyIsSaved" class="mt-3" variant="outline-secondary">Edit</b-button>
-      </b-form-group>
+        <b-button @click="whyIsSaved=!whyIsSaved" class="mt-3 btn-outline-white">Edit</b-button>
     </div>
 </template>
 

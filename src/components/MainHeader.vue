@@ -33,10 +33,6 @@ header {
   z-index: 1000;
 }
 
-.sleep-nav {
-  background-color: $darkBlue1;
-}
-
 .site-name {
   font-size: 1.3rem;
   padding: 2rem 0;
