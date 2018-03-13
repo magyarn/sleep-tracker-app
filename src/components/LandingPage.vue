@@ -23,7 +23,7 @@
           <b-button to="/my-sleep-score/sleep-journal" size="lg" class="btn-success mt-4">Track My Sleep</b-button>
         </b-col>
         <b-col xl="6" lg="6" md="6" class="moon-graphic">
-          <img src="../../static/img/moon-and-sheep.png" alt="sheep sleeping on the moon">
+          <img src="/my-sleep-score/static/img/moon-and-sheep.png" alt="sheep sleeping on the moon">
         </b-col>
       </b-row>
     </b-container>
@@ -39,7 +39,7 @@ export default {
 <style lang="scss">
 @import '../main.scss';
 .intro-wrapper {
-  background-image: url('../../static/img/background.png');
+  background-image: url('/my-sleep-score/static/img/background.png');
   background-repeat: repeat-y;
   background-position: center;
   background-attachment: fixed;

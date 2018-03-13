@@ -72,22 +72,22 @@
                    <p>Nothing to report yet</p>
                    <ul class="habit-list">
                      <li class="neutral">
-                       <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/moon-white.png" alt="moon" class="bonus-badge">
                      </li>
                      <li class="neutral">
-                       <img src="../../static/img/alarm-white.png" alt="alarm" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/alarm-white.png" alt="alarm" class="bonus-badge">
                      </li>
                      <li class="neutral">
-                       <img src="../../static/img/phone-white.png" alt="phone" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/phone-white.png" alt="phone" class="bonus-badge">
                      </li>
                      <li class="neutral">
-                       <img src="../../static/img/light-white.png" alt="light" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/light-white.png" alt="light" class="bonus-badge">
                      </li>
                      <li class="neutral">
-                       <img src="../../static/img/wine-white.png" alt="wine glass" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/wine-white.png" alt="wine glass" class="bonus-badge">
                      </li>
                      <li class="neutral">
-                       <img src="../../static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
                      </li>
                    </ul>
                  </b-card-body>
@@ -111,40 +111,40 @@
                    </p>
                    <ul class="habit-list">
                      <li v-if="entry.bedtime" class="performed">
-                       <img src="../../static/img/moon.png" alt="moon" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/moon.png" alt="moon" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/moon-red.png" alt="moon" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/moon-red.png" alt="moon" class="bonus-badge">
                      </li>
                      <li v-if="entry.waketime" class="performed">
-                       <img src="../../static/img/alarm.png" alt="alarm clock" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/alarm.png" alt="alarm clock" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/alarm-red.png" alt="alarm" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/alarm-red.png" alt="alarm" class="bonus-badge">
                      </li>
                      <li v-if="entry.screens" class="performed">
-                       <img src="../../static/img/phone.png" alt="phone" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/phone.png" alt="phone" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/phone-red.png" alt="phone" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/phone-red.png" alt="phone" class="bonus-badge">
                      </li>
                      <li v-if="entry.brightLights" class="performed">
-                       <img src="../../static/img/light.png" alt="light" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/light.png" alt="light" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/light-red.png" alt="light" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/light-red.png" alt="light" class="bonus-badge">
                      </li>
                      <li v-if="entry.noAlcohol" class="performed">
-                       <img src="../../static/img/wine.png" alt="wine glass" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/wine.png" alt="wine glass" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/wine-red.png" alt="wine glass" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/wine-red.png" alt="wine glass" class="bonus-badge">
                      </li>
                      <li v-if="entry.noCaffeine" class="performed">
-                       <img src="../../static/img/coffee.png" alt="coffee cup" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/coffee.png" alt="coffee cup" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/coffee-red.png" alt="coffee cup" class="bonus-badge">
+                       <img src="/my-sleep-score/static/img/coffee-red.png" alt="coffee cup" class="bonus-badge">
                      </li>
                    </ul>
                  </b-card-body>
@@ -204,28 +204,28 @@ export default {
       ],
       showingAllStats: false,
       performedHabitImages: [
-        '../../static/img/moon.png',
-        '../../static/img/alarm.png',
-        '../../static/img/phone.png',
-        '../../static/img/light.png',
-        '../../static/img/wine.png',
-        '../../static/img/coffee.png'
+        '/my-sleep-score/static/img/moon.png',
+        '/my-sleep-score/static/img/alarm.png',
+        '/my-sleep-score/static/img/phone.png',
+        '/my-sleep-score/static/img/light.png',
+        '/my-sleep-score/static/img/wine.png',
+        '/my-sleep-score/static/img/coffee.png'
       ],
       failedHabitImages: [
-        '../../static/img/moon-red.png',
-        '../../static/img/alarm-red.png',
-        '../../static/img/phone-red.png',
-        '../../static/img/light-red.png',
-        '../../static/img/wine-red.png',
-        '../../static/img/coffee-red.png'
+        '/my-sleep-score/static/img/moon-red.png',
+        '/my-sleep-score/static/img/alarm-red.png',
+        '/my-sleep-score/static/img/phone-red.png',
+        '/my-sleep-score/static/img/light-red.png',
+        '/my-sleep-score/static/img/wine-red.png',
+        '/my-sleep-score/static/img/coffee-red.png'
       ],
       neutralHabitImages: [
-        '../../static/img/moon-white.png',
-        '../../static/img/alarm-white.png',
-        '../../static/img/phone-white.png',
-        '../../static/img/light-white.png',
-        '../../static/img/wine-white.png',
-        '../../static/img/coffee-white.png'
+        '/my-sleep-score/static/img/moon-white.png',
+        '/my-sleep-score/static/img/alarm-white.png',
+        '/my-sleep-score/static/img/phone-white.png',
+        '/my-sleep-score/static/img/light-white.png',
+        '/my-sleep-score/static/img/wine-white.png',
+        '/my-sleep-score/static/img/coffee-white.png'
       ],
       strategies: this.$store.getters.strategies,
       modalPage: 0,
@@ -471,7 +471,7 @@ export default {
 <style lang="scss" scoped>
 @import '../main.scss';
 .sleep-tracker-wrapper {
-  background-image: url('../../static/img/background.png');
+  background-image: url('/my-sleep-score/static/img/background.png');
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
