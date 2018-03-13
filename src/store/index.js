@@ -30,83 +30,83 @@ export default new Vuex.Store({
     strategies: [
       {
         title: 'Stick to a bedtime',
-        icon: '../../static/img/moon-white.png',
+        icon: '/my-sleep-score/static/img/moon-white.png',
         text: 'A consistent bedtime (within an hour of your goal) is key to better sleep.'
       },
       {
         title: 'Rise and Shine',
-        icon: '../../static/img/alarm-white.png',
+        icon: '/my-sleep-score/static/img/alarm-white.png',
         text: 'Waking up at a consistent time (within an hour of your goal) helps you feel more rested and sleep better the next day. This means weekends, too!'
       },
       {
         title: 'Shut Off Screens',
-        icon: '../../static/img/phone-white.png',
+        icon: '/my-sleep-score/static/img/phone-white.png',
         text: 'We know the lure of nighttime Netflix, but your sleep will drastically improve without any screens (that means phones!) for an hour before sleep.'
       },
       {
         title: 'Dim the Lights',
-        icon: '../../static/img/light-white.png',
+        icon: '/my-sleep-score/static/img/light-white.png',
         text: 'Phone and TV screens aren’t your only sleep enemy. Bright lights around your home can mess with you, too. Avoid bright lights for an hour before bed.'
       },
       {
         title: 'Lose the Booze',
-        icon: '../../static/img/wine-white.png',
+        icon: '/my-sleep-score/static/img/wine-white.png',
         text: 'Avoid alcoholic drinks within 3 hours of your bedtime. It may feel like it helps you get to sleep, but it wears off quickly and leads to less effective rest.'
       },
       {
         title: 'Cut Off the Coffee',
-        icon: '../../static/img/coffee-white.png',
+        icon: '/my-sleep-score/static/img/coffee-white.png',
         text: 'Avoid caffeine for 7 hours before your bedtime. That includes caffeine from soda, teas, and coffees. '
       }
     ],
     trackedStrategies: [],
     habitIcons: [
       {
-        pathRed: '../../static/img/battery-red.png',
-        pathWhite: '../../static/img/battery-white.png',
-        pathGreen: '../../static/img/battery.png',
+        pathRed: '/my-sleep-score/static/img/battery-red.png',
+        pathWhite: '/my-sleep-score/static/img/battery-white.png',
+        pathGreen: '/my-sleep-score/static/img/battery.png',
         alt: 'battery'
       },
       {
-        pathRed: '../../static/img/hourglass-red.png',
-        pathWhite: '../../static/img/hourglass-white.png',
-        pathGreen: '../../static/img/hourglass.png',
+        pathRed: '/my-sleep-score/static/img/hourglass-red.png',
+        pathWhite: '/my-sleep-score/static/img/hourglass-white.png',
+        pathGreen: '/my-sleep-score/static/img/hourglass.png',
         alt: 'hourglass'
       },
       {
-        pathRed: '../../static/img/moon-red.png',
-        pathWhite: '../../static/img/moon-white.png',
-        pathGreen: '../../static/img/moon.png',
+        pathRed: '/my-sleep-score/static/img/moon-red.png',
+        pathWhite: '/my-sleep-score/static/img/moon-white.png',
+        pathGreen: '/my-sleep-score/static/img/moon.png',
         alt: 'moon'
       },
       {
-        pathRed: '../../static/img/alarm-red.png',
-        pathWhite: '../../static/img/alarm-white.png',
-        pathGreen: '../../static/img/alarm.png',
+        pathRed: '/my-sleep-score/static/img/alarm-red.png',
+        pathWhite: '/my-sleep-score/static/img/alarm-white.png',
+        pathGreen: '/my-sleep-score/static/img/alarm.png',
         alt: 'alarm clock'
       },
       {
-        pathRed: '../../static/img/phone-red.png',
-        pathWhite: '../../static/img/phone-white.png',
-        pathGreen: '../../static/img/phone.png',
+        pathRed: '/my-sleep-score/static/img/phone-red.png',
+        pathWhite: '/my-sleep-score/static/img/phone-white.png',
+        pathGreen: '/my-sleep-score/static/img/phone.png',
         alt: 'cell phone'
       },
       {
-        pathRed: '../../static/img/light-red.png',
-        pathWhite: '../../static/img/light-white.png',
-        pathGreen: '../../static/img/light.png',
+        pathRed: '/my-sleep-score/static/img/light-red.png',
+        pathWhite: '/my-sleep-score/static/img/light-white.png',
+        pathGreen: '/my-sleep-score/static/img/light.png',
         alt: 'light'
       },
       {
-        pathRed: '../../static/img/wine-red.png',
-        pathWhite: '../../static/img/wine-white.png',
-        pathGreen: '../../static/img/wine.png',
+        pathRed: '/my-sleep-score/static/img/wine-red.png',
+        pathWhite: '/my-sleep-score/static/img/wine-white.png',
+        pathGreen: '/my-sleep-score/static/img/wine.png',
         alt: 'wine glass'
       },
       {
-        pathRed: '../../static/img/coffee-red.png',
-        pathWhite: '../../static/img/coffee-white.png',
-        pathGreen: '../../static/img/coffee.png',
+        pathRed: '/my-sleep-score/static/img/coffee-red.png',
+        pathWhite: '/my-sleep-score/static/img/coffee-white.png',
+        pathGreen: '/my-sleep-score/static/img/coffee.png',
         alt: 'coffee cup'
       }
     ],

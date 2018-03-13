@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 @import '../main.scss';
 .strategy-container {
-  background-image: url('../../static/img/background.png');
+  background-image: url('/my-sleep-score/static/img/background.png');
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
