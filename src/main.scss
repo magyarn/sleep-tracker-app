@@ -1,0 +1,50 @@
+// Colors
+$black: #000;
+$darkBlue1: #192135;
+$darkBlue2: #121826;
+$elephantGrey: #B0B7C9;
+$lightBlue: #5A97FF;
+$gradientBlue: linear-gradient($darkBlue1, $darkBlue2);
+$green: #30A64A;
+$red: #DA3849;
+$slateGrey: #272E3B;
+$white: #FFF;
+
+//Other Variables
+$radius: 5px;
+
+//Global settings
+body, html {
+  box-sizing: border-box;
+  height: 100%;
+  background-color: $darkBlue1;
+}
+
+//Overwriting Bootstrap Styles
+
+.btn-darkBlue {
+  background-color: $darkBlue2;
+  color: $white;
+}
+
+.btn-outline-darkBlue {
+  background: none;
+  border: 1px solid $darkBlue2;
+  color: $darkBlue2;
+}
+
+.btn-outline-white {
+  border: 1px solid $white;
+  color: $white;
+  transition: all .2s ease;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    background-color: $white;
+    color: $darkBlue1;
+  }
+}
+
+.nav-link.active {
+  color: $green;
+}
