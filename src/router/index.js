@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Introduction from '@/components/Introduction'
+import LandingPage from '@/components/LandingPage'
 import SleepTracker from '@/components/SleepTracker'
 import SleepStrategies from '@/components/SleepStrategies'
 
@@ -10,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Introduction',
-      component: Introduction
+      name: 'LandingPage',
+      component: LandingPage
     },
     {
       path: '/sleep-journal',

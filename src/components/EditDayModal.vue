@@ -8,13 +8,47 @@
     hide-footer
     no-close-on-backdrop
     no-close-on-esc>
-    <b-form-group v-if="modalPage==0">
-      <p>How many hours of sleep did you get last night? 🤔</p>
-      <b-form-select v-model="entryToEdit.hours" :options="hourOptions"/>
-    </b-form-group>
-    <b-form-group v-if="modalPage==1" label="Do you feel well-rested today?">
+    <ul class="habit-icon-wrapper mt-2 mb-4">
+      <li v-for="(icon, index) in habitIcons" :key="index">
+        <span
+          v-if="currentModalPage(index) && habitIsUnevaluated(index)"
+          class="habit-icon-border current-page-grey">
+            <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
+        </span>
+        <span
+          v-if="!currentModalPage(index) && habitIsUnevaluated(index)"
+          class="habit-icon-border">
+            <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
+        </span>
+        <span
+          v-if="currentModalPage(index) && habitIsSatisfactory(index)"
+          class="habit-icon-border current-page-green">
+            <img class="habit-icon" :src="icon.pathGreen" :alt="icon.alt">
+        </span>
+        <span
+          v-if="currentModalPage(index) && habitIsUnsatisfactory(index)"
+          class="habit-icon-border current-page-red">
+            <img class="habit-icon" :src="icon.pathRed" :alt="icon.alt">
+        </span>
+        <span
+          v-if="!currentModalPage(index) && habitIsSatisfactory(index)"
+          class="habit-icon-border border-green">
+            <img class="habit-icon" :src="icon.pathGreen" :alt="icon.alt">
+        </span>
+        <span
+          v-if="!currentModalPage(index) && habitIsUnsatisfactory(index)"
+          class="habit-icon-border border-red">
+            <img class="habit-icon" :src="icon.pathRed" :alt="icon.alt">
+        </span>
+      </li>
+    </ul>
+    <b-form-group v-if="modalPage==0" label="Do you feel well-rested today?">
       <b-form-radio-group stacked id="radios1" v-model="entryToEdit.rested" :options="restedOptions" name="radioOpenions">
       </b-form-radio-group>
+    </b-form-group>
+    <b-form-group v-if="modalPage==1">
+      <p>How many hours of sleep did you get last night?</p>
+      <b-form-select v-model="entryToEdit.hours" :options="hourOptions"/>
     </b-form-group>
     <b-form-group v-if="modalPage==2" label="Was your bedtime within one hour of yesterday's?">
       <b-form-radio-group stacked id="radios2" v-model="entryToEdit.bedtime" :options="yesNo" name="radioYesNo">
@@ -77,11 +111,11 @@ export default {
       ],
       rested: '',
       restedOptions: [
-        {value: '0', text: '😩 Nope, I\'m exhausted'},
-        {value: '1', text: '😞 Not really'},
-        {value: '2', text: '😐 Somewhat'},
-        {value: '3', text: '🙂 Yep, I feel good'},
-        {value: '4', text: '🤗 Oh yeah! I feel great!'}
+        {value: '0', text: 'Nope, I\'m exhausted'},
+        {value: '1', text: 'Not really'},
+        {value: '2', text: 'Somewhat'},
+        {value: '3', text: 'Yep, I feel good'},
+        {value: '4', text: 'Oh yeah! I feel great!'}
       ],
       bedtime: null,
       yesNo: [
@@ -101,6 +135,21 @@ export default {
     },
     entryToEdit () {
       return this.$store.getters.entryToEdit
+    },
+    habitIcons () {
+      return this.$store.getters.habitIcons
+    },
+    habits () {
+      return [
+        this.entryToEdit.rested,
+        this.entryToEdit.hours,
+        this.entryToEdit.bedtime,
+        this.entryToEdit.waketime,
+        this.entryToEdit.screens,
+        this.entryToEdit.brightLights,
+        this.entryToEdit.noAlcohol,
+        this.entryToEdit.noCaffeine
+      ]
     }
   },
   methods: {
@@ -114,33 +163,33 @@ export default {
     modalPageDecrement () {
       this.modalPage--
     },
-    addEntry () {
-      const entry = {
-        id: this.entries.length,
-        hours: this.hours,
-        rested: this.rested,
-        bedtime: this.bedtime,
-        waketime: this.waketime,
-        screens: this.screens,
-        brightLights: this.brightLights,
-        noAlcohol: this.noAlcohol,
-        noCaffeine: this.noCaffeine,
-        bonusPoints: 0
-      }
-      this.$store.dispatch('addEntry', entry)
-      this.$refs.myModalRef2.hide()
-      this.clearCurrentDataPoints()
+    currentModalPage (index) {
+      return this.modalPage === index
     },
-    clearCurrentDataPoints () {
-      this.hours = null
-      this.rested = null
-      this.bedtime = null
-      this.waketime = null
-      this.screens = null
-      this.brightLights = null
-      this.noAlcohol = null
-      this.noCaffeine = null
-      this.modalPage = 0
+    habitIsSatisfactory (index) {
+      if (index === 0) {
+        return this.entryToEdit.rested >= 3
+      } else if (index === 1) {
+        return this.entryToEdit.hours >= 7
+      } else if (index >= 2) {
+        return this.habits[index]
+      }
+    },
+    habitIsUnsatisfactory (index) {
+      if (index === 0) {
+        return this.entryToEdit.rested < 3 && this.entryToEdit.rested !== ''
+      } else if (index === 1) {
+        return this.entryToEdit.hours < 7 && this.entryToEdit.hours !== null
+      } else if (index >= 2) {
+        return this.habits[index] === false
+      }
+    },
+    habitIsUnevaluated (index) {
+      if (index === 0) {
+        return this.entryToEdit.rested === ''
+      } else if (index >= 1) {
+        return this.habits[index] === null
+      }
     }
   }
 }

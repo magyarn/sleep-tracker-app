@@ -3,6 +3,21 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+function findFails (entry) {
+  const entryKeys = Object.keys(entry).filter(key =>
+    key !== ('id') &&
+    key !== 'rested' &&
+    key !== 'hours'
+  )
+  const fails = []
+  entryKeys.forEach(key => {
+    if (!entry[key]) {
+      fails.push(key)
+    }
+  })
+  return fails
+}
+
 export default new Vuex.Store({
   state: {
     why: {
@@ -11,43 +26,122 @@ export default new Vuex.Store({
     },
     entries: [],
     entryToEdit: null,
-    tips: [],
     dailyScore: 0,
     strategies: [
       {
         title: 'Stick to a bedtime',
-        text: 'Try to head to sleep around the same time each night, with in an hour of the last night.'
+        icon: '../../static/img/moon-white.png',
+        text: 'A consistent bedtime (within an hour of your goal) is key to better sleep.'
+      },
+      {
+        title: 'Rise and Shine',
+        icon: '../../static/img/alarm-white.png',
+        text: 'Waking up at a consistent time (within an hour of your goal) helps you feel more rested and sleep better the next day. This means weekends, too!'
       },
       {
         title: 'Shut Off Screens',
-        text: 'We know the lure of nighttime Netflix, but your sleep will drastically improve without any screens (that means phones!) for an hour before sleep. Try reading by dimmed light or a sound machine to help transition your routine.'
+        icon: '../../static/img/phone-white.png',
+        text: 'We know the lure of nighttime Netflix, but your sleep will drastically improve without any screens (that means phones!) for an hour before sleep.'
+      },
+      {
+        title: 'Dim the Lights',
+        icon: '../../static/img/light-white.png',
+        text: 'Phone and TV screens aren’t your only sleep enemy. Bright lights around your home can mess with you, too. Avoid bright lights for an hour before bed.'
       },
       {
         title: 'Lose the Booze',
-        text: 'Avoid alcoholic drinks within 3 hours of your bedtime.'
+        icon: '../../static/img/wine-white.png',
+        text: 'Avoid alcoholic drinks within 3 hours of your bedtime. It may feel like it helps you get to sleep, but it wears off quickly and leads to less effective rest.'
       },
       {
         title: 'Cut Off the Coffee',
-        text: 'Avoid caffeine for 7 hours before your bedtime. Set a time in the afternoon that’s easy to remember so you won’t have to think before choosing coffee or herbal tea for your next fill up.'
-      },
-      {
-        title: 'Stick to a bedtime',
-        text: 'Try to head to sleep around the same time each night, with in an hour of the last night.'
-      },
-      {
-        title: 'Set the Scene',
-        text: 'Do what you can to create a special space for sleep. Avoid work or other stressful activities in the bedroom. Having a wind-down routine that works for you can help you prepare mentally and physically for better sleep.'
-      },
-      {
-        title: 'Eat Earlier',
-        text: 'Avoid having a large meal within three hours of bedtime. '
-      },
-      {
-        title: 'Move More',
-        text: 'Getting exercise during the day can help encourage sleep. Keep in mind that more intense activities can actually energize you before bedtime, so you’ll want to find exercise items that work for you.'
+        icon: '../../static/img/coffee-white.png',
+        text: 'Avoid caffeine for 7 hours before your bedtime. That includes caffeine from soda, teas, and coffees. '
       }
     ],
-    trackedStrategies: []
+    trackedStrategies: [],
+    habitIcons: [
+      {
+        pathRed: '../../static/img/battery-red.png',
+        pathWhite: '../../static/img/battery-white.png',
+        pathGreen: '../../static/img/battery.png',
+        alt: 'battery'
+      },
+      {
+        pathRed: '../../static/img/hourglass-red.png',
+        pathWhite: '../../static/img/hourglass-white.png',
+        pathGreen: '../../static/img/hourglass.png',
+        alt: 'hourglass'
+      },
+      {
+        pathRed: '../../static/img/moon-red.png',
+        pathWhite: '../../static/img/moon-white.png',
+        pathGreen: '../../static/img/moon.png',
+        alt: 'moon'
+      },
+      {
+        pathRed: '../../static/img/alarm-red.png',
+        pathWhite: '../../static/img/alarm-white.png',
+        pathGreen: '../../static/img/alarm.png',
+        alt: 'alarm clock'
+      },
+      {
+        pathRed: '../../static/img/phone-red.png',
+        pathWhite: '../../static/img/phone-white.png',
+        pathGreen: '../../static/img/phone.png',
+        alt: 'cell phone'
+      },
+      {
+        pathRed: '../../static/img/light-red.png',
+        pathWhite: '../../static/img/light-white.png',
+        pathGreen: '../../static/img/light.png',
+        alt: 'light'
+      },
+      {
+        pathRed: '../../static/img/wine-red.png',
+        pathWhite: '../../static/img/wine-white.png',
+        pathGreen: '../../static/img/wine.png',
+        alt: 'wine glass'
+      },
+      {
+        pathRed: '../../static/img/coffee-red.png',
+        pathWhite: '../../static/img/coffee-white.png',
+        pathGreen: '../../static/img/coffee.png',
+        alt: 'coffee cup'
+      }
+    ],
+    tips: {
+      bedtime: [
+        'Head to sleep around the same time each night.',
+        'Set a bedtime reminder alarm on your phone.',
+        'Use a wind-down routine to set you up for rest.'
+      ],
+      waketime: [
+        'Are there things in your schedule you control that would help you wake up closer to the same time across the weekdays and weekends?',
+        'If you are waking up later than you’d hoped on free mornings, you may need more rest than you’ve allowed yourself. Try heading to sleep earlier.',
+        'Give your body a few days to get comfortable with a new schedule.'
+      ],
+      screens: [
+        'If you’re used to watching something as you fall asleep, a noise machine may help you transition to a more quiet bedtime routine.',
+        'Feel bored without your phone before bed? Try reading by a dim light.',
+        'Choose a time to set your phone up to charge away from your bed, so it’s out of reach during the tempting times.'
+      ],
+      brightLights: [
+        'Try a simple dimmer switch outlet for any lamps in your bedroom.',
+        'The light bulbs you use can make a difference. Use a red-tinted or incandescent bulb, rather than an LED that puts out blue light.',
+        'Take advantage of this low-light hour before bed to unwind.'
+      ],
+      noAlcohol: [
+        'Schedule outings earlier in the evening to allow for 3 hours between your last alcoholic drink and sleep.',
+        'Give your body a few days to get used to sleeping without alcohol if you often have a nightcap.',
+        'Replace the muscle and mind relaxation that can come from alcohol. Try herbal tea, meditation, or stretching.'
+      ],
+      noCaffeine: [
+        'Set a time in the afternoon that’s easy to remember so you won’t have to think before choosing coffee or herbal tea for your next fill up.',
+        'Replace evening sodas with sparkling water.',
+        'Drink more water, which also helps with side effects from cutting back on caffeine.'
+      ]
+    }
   },
   mutations: {
     setDailyScore (state, payloadScore) {
@@ -87,65 +181,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    updateScore: ({ commit }, payload) => {
-      if (payload.dataItem.more_than_seven && payload.thingThatChanged === 'more_than_seven') {
-        payload.dataItem.daily_score -= 6
-      } else if (!payload.dataItem.more_than_seven && payload.thingThatChanged === 'more_than_seven') {
-        payload.dataItem.daily_score += 6
-      }
-      if (payload.dataItem.rested && payload.thingThatChanged === 'rested') {
-        payload.dataItem.daily_score -= 3
-      } else if (!payload.dataItem.rested && payload.thingThatChanged === 'rested') {
-        payload.dataItem.daily_score += 3
-      }
-      if (payload.dataItem.consistent_bedtime && payload.thingThatChanged === 'consistent_bedtime') {
-        payload.dataItem.daily_score -= 3
-      } else if (!payload.dataItem.consistent_bedtime && payload.thingThatChanged === 'consistent_bedtime') {
-        payload.dataItem.daily_score += 3
-      }
-      if (payload.dataItem.consistent_waketime && payload.thingThatChanged === 'consistent_waketime') {
-        payload.dataItem.daily_score -= 2
-      } else if (!payload.dataItem.consistent_waketime && payload.thingThatChanged === 'consistent_waketime') {
-        payload.dataItem.daily_score += 2
-      }
-      if (payload.dataItem.screentime_cutoff && payload.thingThatChanged === 'screentime_cutoff') {
-        payload.dataItem.daily_score -= 3
-      } else if (!payload.dataItem.screentime_cutoff && payload.thingThatChanged === 'screentime_cutoff') {
-        payload.dataItem.daily_score += 3
-      }
-      if (payload.dataItem.bright_lights && payload.thingThatChanged === 'bright_lights') {
-        payload.dataItem.daily_score -= 1
-      } else if (!payload.dataItem.bright_lights && payload.thingThatChanged === 'bright_lights') {
-        payload.dataItem.daily_score += 1
-      }
-      if (payload.dataItem.no_alcohol && payload.thingThatChanged === 'no_alcohol') {
-        payload.dataItem.daily_score -= 1
-      } else if (!payload.dataItem.no_alcohol && payload.thingThatChanged === 'no_alcohol') {
-        payload.dataItem.daily_score += 1
-      }
-      if (payload.dataItem.no_caffeine && payload.thingThatChanged === 'no_caffeine') {
-        payload.dataItem.daily_score -= 1
-      } else if (!payload.dataItem.no_caffeine && payload.thingThatChanged === 'no_caffeine') {
-        payload.dataItem.daily_score += 1
-      }
-      const payloadScore = {
-        dailyScore: payload.dataItem.daily_score
-      }
-      commit('setDailyScore', payloadScore)
-    },
-    updateTips ({ commit }, payload) {
-      let tips = []
-      if (!payload.more_than_seven) { tips.push(payload.seven_suggestion) }
-      if (!payload.rested) { tips.push(payload.rested_suggestion) }
-      if (!payload.consistent_bedtime) { tips.push(payload.bedtime_suggestion) }
-      if (!payload.consistent_waketime) { tips.push(payload.waketime_suggestion) }
-      if (!payload.screentime_cutoff) { tips.push(payload.screentime_suggestion) }
-      if (!payload.bright_lights) { tips.push(payload.lights_suggestion) }
-      if (!payload.no_alcohol) { tips.push(payload.alcohol_suggestion) }
-      if (!payload.no_caffeine) { tips.push(payload.caffeine_suggestion) }
-      if (payload.daily_score === 20) { tips.push('Congrats! You got a perfect sleep score today!') }
-      commit('setTips', tips)
-    },
     updateWhy ({ commit }, payload) {
       commit('setWhy', payload)
     },
@@ -207,7 +242,7 @@ export default new Vuex.Store({
     averageHoursOfSleep: state => {
       const totalHours = state.entries.reduce((sum, entry) => sum + entry.hours, 0)
       const numberOfEntries = state.entries.length
-      return Math.round(totalHours / numberOfEntries, 1)
+      return Math.round((totalHours / numberOfEntries) * 10) / 10
     },
     bedtimeStreak: state => {
       return state.entries.map(entry => entry.bedtime)
@@ -226,6 +261,19 @@ export default new Vuex.Store({
     },
     noCaffeineStreak: state => {
       return state.entries.map(entry => entry.noCaffeine)
+    },
+    habitIcons: state => {
+      return state.habitIcons
+    },
+    randomTips: state => habit => {
+      const randomInt = Math.floor(Math.random(3))
+      return state.tips[habit][randomInt]
+    },
+    mostRecentFails: state => {
+      if (state.entries.length) {
+        const mostRecent = state.entries[state.entries.length - 1]
+        return findFails(mostRecent)
+      }
     }
   }
 })

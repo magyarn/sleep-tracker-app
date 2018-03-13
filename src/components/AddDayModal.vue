@@ -11,14 +11,24 @@
       <ul class="habit-icon-wrapper mt-2 mb-4">
         <li v-for="(icon, index) in habitIcons" :key="index">
           <span
+            v-if="currentModalPage(index) && habitIsUnevaluated(index)"
+            class="habit-icon-border current-page-grey">
+              <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
+          </span>
+          <span
+            v-if="!currentModalPage(index) && habitIsUnevaluated(index)"
+            class="habit-icon-border">
+              <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
+          </span>
+          <span
             v-if="currentModalPage(index) && habitIsSatisfactory(index)"
             class="habit-icon-border current-page-green">
               <img class="habit-icon" :src="icon.pathGreen" :alt="icon.alt">
           </span>
           <span
-            v-if="currentModalPage(index) && !habitIsSatisfactory(index)"
-            class="habit-icon-border current-page-grey">
-              <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
+            v-if="currentModalPage(index) && habitIsUnsatisfactory(index)"
+            class="habit-icon-border current-page-red">
+              <img class="habit-icon" :src="icon.pathRed" :alt="icon.alt">
           </span>
           <span
             v-if="!currentModalPage(index) && habitIsSatisfactory(index)"
@@ -26,14 +36,13 @@
               <img class="habit-icon" :src="icon.pathGreen" :alt="icon.alt">
           </span>
           <span
-            v-if="!currentModalPage(index) && !habitIsSatisfactory(index)"
-            class="habit-icon-border">
-              <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
+            v-if="!currentModalPage(index) && habitIsUnsatisfactory(index)"
+            class="habit-icon-border border-red">
+              <img class="habit-icon" :src="icon.pathRed" :alt="icon.alt">
           </span>
         </li>
       </ul>
-      <b-form-group v-if="modalPage==0">
-        <p>Do you feel well rested today?</p>
+      <b-form-group v-if="modalPage==0" label="Do you feel well rested today?">
         <b-form-radio-group
           stacked
           id="radios1"
@@ -44,8 +53,7 @@
           button-variant="success">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==1">
-        <p>How many hours of sleep did you get last night?</p>
+      <b-form-group v-if="modalPage==1" label="How many hours of sleep did you get last night?">
         <b-form-select v-model="hours" :options="hourOptions"/>
       </b-form-group>
       <b-form-group v-if="modalPage==2" label="Was your bedtime within one hour of yesterday's?">
@@ -90,48 +98,6 @@ export default {
     return {
       modalPage: 0,
       modalPageMax: 7,
-      habitIcons: [
-        {
-          pathWhite: '../../static/img/hourglass-white.png',
-          pathGreen: '../../static/img/hourglass.png',
-          alt: 'hourglass'
-        },
-        {
-          pathWhite: '../../static/img/battery-white.png',
-          pathGreen: '../../static/img/battery.png',
-          alt: 'battery'
-        },
-        {
-          pathWhite: '../../static/img/alarm-white.png',
-          pathGreen: '../../static/img/alarm.png',
-          alt: 'alarm clock'
-        },
-        {
-          pathWhite: '../../static/img/moon-white.png',
-          pathGreen: '../../static/img/moon.png',
-          alt: 'moon'
-        },
-        {
-          pathWhite: '../../static/img/phone-white.png',
-          pathGreen: '../../static/img/phone.png',
-          alt: 'cell phone'
-        },
-        {
-          pathWhite: '../../static/img/light-white.png',
-          pathGreen: '../../static/img/light.png',
-          alt: 'light'
-        },
-        {
-          pathWhite: '../../static/img/wine-white.png',
-          pathGreen: '../../static/img/wine.png',
-          alt: 'wine glass'
-        },
-        {
-          pathWhite: '../../static/img/coffee-white.png',
-          pathGreen: '../../static/img/coffee.png',
-          alt: 'coffee cup'
-        }
-      ],
       hours: null,
       hourOptions: [
         {value: null, text: 'Please select a number'},
@@ -172,6 +138,9 @@ export default {
     entries () {
       return this.$store.getters.entries
     },
+    habitIcons () {
+      return this.$store.getters.habitIcons
+    },
     habits () {
       return [
         this.rested,
@@ -202,8 +171,7 @@ export default {
         screens: this.screens,
         brightLights: this.brightLights,
         noAlcohol: this.noAlcohol,
-        noCaffeine: this.noCaffeine,
-        bonusPoints: 0
+        noCaffeine: this.noCaffeine
       }
       this.$store.dispatch('addEntry', entry)
       this.$refs.myModalRef3.hide()
@@ -211,7 +179,7 @@ export default {
     },
     clearCurrentDataPoints () {
       this.hours = null
-      this.rested = null
+      this.rested = ''
       this.bedtime = null
       this.waketime = null
       this.screens = null
@@ -221,30 +189,7 @@ export default {
       this.modalPage = 0
     },
     currentModalPage (index) {
-      if (this.modalPage === 0) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 1) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 2) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 3) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 4) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 5) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 6) {
-        return this.modalPage === index
-      }
-      if (this.modalPage === 7) {
-        return this.modalPage === index
-      }
+      return this.modalPage === index
     },
     habitIsSatisfactory (index) {
       if (index === 0) {
@@ -254,12 +199,28 @@ export default {
       } else if (index >= 2) {
         return this.habits[index]
       }
+    },
+    habitIsUnsatisfactory (index) {
+      if (index === 0) {
+        return this.rested < 3 && this.rested !== ''
+      } else if (index === 1) {
+        return this.hours < 7 && this.hours !== null
+      } else if (index >= 2) {
+        return this.habits[index] === false
+      }
+    },
+    habitIsUnevaluated (index) {
+      if (index === 0) {
+        return this.rested === ''
+      } else if (index >= 1) {
+        return this.habits[index] === null
+      }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../main.scss';
 .modal-actions {
   display: flex;
@@ -302,8 +263,14 @@ export default {
   &.current-page-green {
     border: 3px solid $green;
   }
+  &.current-page-red {
+    border: 3px solid $red;
+  }
   &.border-green {
     border: 1px solid $green;
+  }
+  &.border-red {
+    border: 1px solid $red;
   }
   @media (max-width: 576px) {
     width: 30px;

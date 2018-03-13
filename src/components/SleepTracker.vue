@@ -3,91 +3,64 @@
     <b-container>
       <b-row class="pt-4">
         <b-col class="journal-header">
-          <h2 class="my-4 bm">My Sleep Journal</h2>
-          <b-btn v-if="entries.length <7" v-b-modal.modal3 class="btn-success">Add New Entry</b-btn>
-          <b-btn v-else class="btn-outline-danger" v-b-modal.modal4>Clear Entries</b-btn>
+          <h3 class="my-4 bm">My Sleep Journal</h3>
+          <b-btn v-if="entries.length <7" v-b-modal.modal3 class="btn-success btn-entry" size="lg">+ New Night</b-btn>
+          <b-btn v-else class="btn-outline-danger btn-entry" v-b-modal.modal4 size="lg">Clear Journal Entries</b-btn>
         </b-col>
       </b-row>
+      <p>Below is a private journal for
+      recording your sleep habits and goals. You can return here
+      anytime in the future and your entries will still be here.</p>
       <b-row>
         <b-col>
-          <p>Below is a private journal for recording your sleep habits and goals. You can return here
-          anytime in the future and your entries will still be here.</p>
+          <b-card class="sleep-entry-card">
+            <my-why></my-why>
+          </b-card>
         </b-col>
       </b-row>
-      <b-card-group deck class="my-4">
-        <b-card class="sleep-entry-card">
-          <h3>My Statistics</h3>
+      <b-card-group deck>
+        <b-card class="sleep-entry-card sleep-tips-card">
+          <h3>Overview</h3>
           <p v-if="averageHoursOfSleep">Average: {{averageHoursOfSleep}} hours</p>
           <p v-else>Average: Nothing to report yet</p>
-          <b-row class="desktop-stats">
-            <b-col>
-              <ul class="stat-list">
-                <li>
-                  <b-row v-for="(category, index) in getStreaks()" :key="index">
-                    <b-col lg="5" xl="5">
-                      <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
-                      <p v-else>{{streakLabels[index]}}</p>
-                    </b-col>
-                    <b-col v-if="index==0" class="desktop-days-row" lg="7" xl="7">
-                      <ul class="stat-streak">
-                        <li v-for="(day, index) in days" :key="index">{{day + 1}}</li>
-                      </ul>
-                    </b-col>
-                    <b-col v-else lg="7" xl="7">
-                      <ul class="stat-streak">
-                        <li v-for="day in days" :key="day">
-                          <span v-if="category[day]" class="performed-habit"></span>
-                          <span v-else class="failed-habit"></span>
-                        </li>
-                      </ul>
-                    </b-col>
-                  </b-row>
-                </li>
-              </ul>
-            </b-col>
-          </b-row>
-          <b-row class="mobile-stats">
-            <b-col>
-              <ul class="stat-list">
-                <li>
-                  <b-row v-for="(category, index) in getStreaks()" :key="index">
-                    <b-col lg="5" xl="5">
-                      <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
-                      <p v-if="index > 0 && index <=2 && !showingAllStats">{{streakLabels[index]}}</p>
-                      <p v-if="index > 0 && showingAllStats">{{streakLabels[index]}}</p>
-                    </b-col>
-                    <b-col v-if="index==0" class="desktop-days-row" lg="7" xl="7">
-                      <ul class="stat-streak">
-                        <li v-for="(day, index) in days" :key="index">{{day + 1}}</li>
-                      </ul>
-                    </b-col>
-                    <b-col v-else lg="7" xl="7">
-                      <ul class="stat-streak">
-                        <li v-if="index <=2 && !showingAllStats" v-for="day in days" :key="day">
-                          <p class="mobile-day-header">{{day + 1}}</p>
-                          <span v-if="category[day]" class="performed-habit"></span>
-                          <span v-else class="failed-habit"></span>
-                        </li>
-                        <li v-if="showingAllStats" v-for="day in days" :key="day">
-                          <p class="mobile-day-header">{{day + 1}}</p>
-                          <span v-if="category[day]" class="performed-habit"></span>
-                          <span v-else class="failed-habit"></span>
-                        </li>
-                      </ul>
-                    </b-col>
-                  </b-row>
-                </li>
-              </ul>
-              <b-button v-if="!showingAllStats" class="btn-outline-white mt-4" @click="showMoreStats()">Show More Statistics</b-button>
-              <b-button v-else class="btn-outline-white mt-4" @click="showFewerStats()">Show Fewer Statistics</b-button>
-            </b-col>
-          </b-row>
+          <ul class="stat-list">
+            <li v-for="(category, index) in getStreaks()" :key="index" >
+              <b-row class="my-2">
+                <b-col lg="3" xl="5">
+                  <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
+                  <p v-else>{{streakLabels[index]}}</p>
+                </b-col>
+                <b-col v-if="index==0" class="desktop-days-row" lg="8" xl="7">
+                  <ul class="stat-streak">
+                    <li v-for="(night, index) in week" :key="index" class="night-label">{{night}}</li>
+                  </ul>
+                </b-col>
+                <b-col v-else lg="8" xl="7">
+                  <ul class="stat-streak">
+                    <li v-for="(day, index) in category.data" :key="index + 100">
+                      <span v-if="day" class="performed-habit">
+                        <img class="bonus-badge" :src="performedHabitImage(category)" alt="">
+                      </span>
+                      <span v-else class="failed-habit">
+                        <img class="bonus-badge" :src="failedHabitImage(category)" alt="">
+                      </span>
+                    </li>
+                    <li v-for="(day, index) in days" :key="index">
+                      <span class="neutral-habit">
+                        <img class="bonus-badge" :src="neutralHabitImage(category)" alt="">
+                      </span>
+                    </li>
+                  </ul>
+                </b-col>
+              </b-row>
+            </li>
+          </ul>
         </b-card>
-        <b-card class="sleep-entry-card">
-          <my-why></my-why>
+        <b-card class="sleep-entry-card sleep-tips-card">
+          <my-sleep-tips></my-sleep-tips>
         </b-card>
       </b-card-group>
-      <b-row class="my-4">
+      <b-row class="night-cards">
         <b-col>
           <b-row>
             <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
@@ -95,40 +68,40 @@
                  class="mb-4 sleep-entry-card"
                  no-body>
                  <b-card-body>
-                   <h3>Day 1</h3>
+                   <h3>Night 1</h3>
                    <p>Nothing to report yet</p>
                    <ul class="habit-list">
-                     <li class="failed">
+                     <li class="neutral">
                        <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
                      </li>
-                     <li class="failed">
+                     <li class="neutral">
                        <img src="../../static/img/alarm-white.png" alt="alarm" class="bonus-badge">
                      </li>
-                     <li class="failed">
+                     <li class="neutral">
                        <img src="../../static/img/phone-white.png" alt="phone" class="bonus-badge">
                      </li>
-                     <li class="failed">
+                     <li class="neutral">
                        <img src="../../static/img/light-white.png" alt="light" class="bonus-badge">
                      </li>
-                     <li class="failed">
+                     <li class="neutral">
                        <img src="../../static/img/wine-white.png" alt="wine glass" class="bonus-badge">
                      </li>
-                     <li class="failed">
+                     <li class="neutral">
                        <img src="../../static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
                      </li>
                    </ul>
                  </b-card-body>
                  <b-card-footer style="padding: .75rem">
-                   <b-button v-b-modal.modal3 class="mr-2" variant="outline-success">Add New Entry</b-button>
+                   <b-button v-b-modal.modal3 class="mr-2 btn-outline-white">+ New Night</b-button>
                  </b-card-footer>
               </b-card>
             </b-col>
             <b-col v-for="(entry, index) in entries" :key="index" xl="4" lg="6" md="12" sm="12" xs="12">
               <b-card
-                 class="mb-4 sleep-entry-card"
+                 class="mb-4 sleep-entry-card sleep-tips-card"
                  no-body>
                  <b-card-body>
-                   <h3>Day {{index + 1}}</h3>
+                   <h3>Night {{index + 1}}</h3>
                    <p>{{entry.hours}} hours •
                      <span v-if="entry.rested==0">Exhausted</span>
                      <span v-if="entry.rested==1">Not well rested</span>
@@ -141,37 +114,37 @@
                        <img src="../../static/img/moon.png" alt="moon" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
+                       <img src="../../static/img/moon-red.png" alt="moon" class="bonus-badge">
                      </li>
                      <li v-if="entry.waketime" class="performed">
                        <img src="../../static/img/alarm.png" alt="alarm clock" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/alarm-white.png" alt="alarm" class="bonus-badge">
+                       <img src="../../static/img/alarm-red.png" alt="alarm" class="bonus-badge">
                      </li>
                      <li v-if="entry.screens" class="performed">
                        <img src="../../static/img/phone.png" alt="phone" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/phone-white.png" alt="phone" class="bonus-badge">
+                       <img src="../../static/img/phone-red.png" alt="phone" class="bonus-badge">
                      </li>
                      <li v-if="entry.brightLights" class="performed">
                        <img src="../../static/img/light.png" alt="light" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/light-white.png" alt="light" class="bonus-badge">
+                       <img src="../../static/img/light-red.png" alt="light" class="bonus-badge">
                      </li>
                      <li v-if="entry.noAlcohol" class="performed">
                        <img src="../../static/img/wine.png" alt="wine glass" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/wine-white.png" alt="wine glass" class="bonus-badge">
+                       <img src="../../static/img/wine-red.png" alt="wine glass" class="bonus-badge">
                      </li>
                      <li v-if="entry.noCaffeine" class="performed">
                        <img src="../../static/img/coffee.png" alt="coffee cup" class="bonus-badge">
                      </li>
                      <li v-else class="failed">
-                       <img src="../../static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
+                       <img src="../../static/img/coffee-red.png" alt="coffee cup" class="bonus-badge">
                      </li>
                    </ul>
                  </b-card-body>
@@ -195,6 +168,7 @@
 <script>
 import store from '../store'
 import MyWhy from './MyWhy'
+import MySleepTips from './MySleepTips'
 import FeedbackModal from './FeedbackModal'
 import AddDayModal from './AddDayModal'
 import EditDayModal from './EditDayModal'
@@ -210,6 +184,7 @@ export default {
   },
   components: {
     MyWhy,
+    MySleepTips,
     FeedbackModal,
     AddDayModal,
     EditDayModal,
@@ -217,17 +192,41 @@ export default {
   },
   data () {
     return {
-      days: [0, 1, 2, 3, 4, 5, 6],
+      week: [1, 2, 3, 4, 5, 6, 7],
       streakLabels: [
-        'Days',
-        'Consistent bedtime',
-        'Consistent waketime',
-        'No screens (1 hour)',
-        'No bright lights',
-        'No alcohol (3 hours)',
-        'No caffeine (7 hours)'
+        'Nights',
+        'Stick to a Bedtime',
+        'Rise and Shine',
+        'Shut Off Screens',
+        'Dim the Lights',
+        'Lose the Booze',
+        'Cut Off the Coffee'
       ],
       showingAllStats: false,
+      performedHabitImages: [
+        '../../static/img/moon.png',
+        '../../static/img/alarm.png',
+        '../../static/img/phone.png',
+        '../../static/img/light.png',
+        '../../static/img/wine.png',
+        '../../static/img/coffee.png'
+      ],
+      failedHabitImages: [
+        '../../static/img/moon-red.png',
+        '../../static/img/alarm-red.png',
+        '../../static/img/phone-red.png',
+        '../../static/img/light-red.png',
+        '../../static/img/wine-red.png',
+        '../../static/img/coffee-red.png'
+      ],
+      neutralHabitImages: [
+        '../../static/img/moon-white.png',
+        '../../static/img/alarm-white.png',
+        '../../static/img/phone-white.png',
+        '../../static/img/light-white.png',
+        '../../static/img/wine-white.png',
+        '../../static/img/coffee-white.png'
+      ],
       strategies: this.$store.getters.strategies,
       modalPage: 0,
       hours: null,
@@ -267,6 +266,9 @@ export default {
     }
   },
   computed: {
+    days () {
+      return new Array(7 - this.entries.length)
+    },
     allFields () {
       return this.$store.getters.allFields
     },
@@ -378,13 +380,34 @@ export default {
     },
     getStreaks () {
       return [
-        this.days,
-        this.bedtimeStreak,
-        this.waketimeStreak,
-        this.screentimeStreak,
-        this.brightLightsStreak,
-        this.noAlcoholStreak,
-        this.noCaffeineStreak
+        {
+          label: 'Nights',
+          data: this.days
+        },
+        {
+          label: 'Consistent Bedtime',
+          data: this.bedtimeStreak
+        },
+        {
+          label: 'Consistent Waketime',
+          data: this.waketimeStreak
+        },
+        {
+          label: 'No screens (1 hour)',
+          data: this.screentimeStreak
+        },
+        {
+          label: 'No bright lights',
+          data: this.brightLightsStreak
+        },
+        {
+          label: 'No alcohol (3 hours)',
+          data: this.noAlcoholStreak
+        },
+        {
+          label: 'No caffeine (7 hours)',
+          data: this.noCaffeineStreak
+        }
       ]
     },
     showFewerStats () {
@@ -392,6 +415,51 @@ export default {
     },
     showMoreStats () {
       this.showingAllStats = true
+    },
+    performedHabitImage (category) {
+      if (category.label === 'Consistent Bedtime') {
+        return this.performedHabitImages[0]
+      } else if (category.label === 'Consistent Waketime') {
+        return this.performedHabitImages[1]
+      } else if (category.label === 'No screens (1 hour)') {
+        return this.performedHabitImages[2]
+      } else if (category.label === 'No bright lights') {
+        return this.performedHabitImages[3]
+      } else if (category.label === 'No alcohol (3 hours)') {
+        return this.performedHabitImages[4]
+      } else if (category.label === 'No caffeine (7 hours)') {
+        return this.performedHabitImages[5]
+      }
+    },
+    failedHabitImage (category) {
+      if (category.label === 'Consistent Bedtime') {
+        return this.failedHabitImages[0]
+      } else if (category.label === 'Consistent Waketime') {
+        return this.failedHabitImages[1]
+      } else if (category.label === 'No screens (1 hour)') {
+        return this.failedHabitImages[2]
+      } else if (category.label === 'No bright lights') {
+        return this.failedHabitImages[3]
+      } else if (category.label === 'No alcohol (3 hours)') {
+        return this.failedHabitImages[4]
+      } else if (category.label === 'No caffeine (7 hours)') {
+        return this.failedHabitImages[5]
+      }
+    },
+    neutralHabitImage (category) {
+      if (category.label === 'Consistent Bedtime') {
+        return this.neutralHabitImages[0]
+      } else if (category.label === 'Consistent Waketime') {
+        return this.neutralHabitImages[1]
+      } else if (category.label === 'No screens (1 hour)') {
+        return this.neutralHabitImages[2]
+      } else if (category.label === 'No bright lights') {
+        return this.neutralHabitImages[3]
+      } else if (category.label === 'No alcohol (3 hours)') {
+        return this.neutralHabitImages[4]
+      } else if (category.label === 'No caffeine (7 hours)') {
+        return this.neutralHabitImages[5]
+      }
     }
   },
   mounted: function () {
@@ -421,6 +489,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  @media (max-width: 761px) {
+    display: block;
+  }
 }
 
 .habit-list,
@@ -431,15 +502,11 @@ export default {
   margin: 0;
 }
 
-.desktop-stats {
+.sleep-tips-card {
+  margin-top: 2rem;
   @media (max-width: 989px) {
-    display: none;
-  }
-}
-
-.mobile-stats {
-  @media (min-width: 989px) {
-    display: none;
+    margin-top: 1rem;
+    margin-bottom: 0;
   }
 }
 
@@ -460,6 +527,10 @@ export default {
   text-align: center;
 }
 
+.category-row {
+  margin: .25rem 0;
+}
+
 .habit-list,
 .stat-streak {
   display: flex;
@@ -478,20 +549,43 @@ export default {
   }
 }
 
+.night-label {
+  width: 35px;
+  text-align: center;
+}
+
+.night-cards {
+  margin-top: .5rem;
+}
+
 .performed-habit {
-  display: inline-block;
   border-radius: 50%;
-  height: 15px;
-  width: 15px;
-  background-color: $green;
+  height: 35px;
+  width: 35px;
+  border: 1px solid $green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.neutral-habit {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  border: 1px solid $elephantGrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .failed-habit {
-  display: inline-block;
   border-radius: 50%;
-  height: 15px;
-  width: 15px;
-  border: 1px solid $elephantGrey;
+  height: 35px;
+  width: 35px;
+  border: 1px solid $red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .habit-list li {
@@ -499,14 +593,17 @@ export default {
   justify-content: center;
   align-items: center;
   margin: .25rem;
-  height: 50px;
-  width: 50px;
+  height: 35px;
+  width: 35px;
   overflow: hidden;
   border-radius: 50%;
   &.performed {
     border: 1px solid $green;
   }
   &.failed {
+    border: 1px solid $red;
+  }
+  &.neutral {
     border: 1px solid $elephantGrey;
   }
 }

@@ -6,6 +6,7 @@ $elephantGrey: #B0B7C9;
 $lightBlue: #5A97FF;
 $gradientBlue: linear-gradient($darkBlue1, $darkBlue2);
 $green: #30A64A;
+$red: #DA3849;
 $slateGrey: #272E3B;
 $white: #FFF;
 
@@ -16,6 +17,7 @@ $radius: 5px;
 body, html {
   box-sizing: border-box;
   height: 100%;
+  background-color: $darkBlue1;
 }
 
 //Overwriting Bootstrap Styles
