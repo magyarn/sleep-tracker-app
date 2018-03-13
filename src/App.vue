@@ -1,20 +1,21 @@
 <template>
   <div id="app">
-    <SleepTracker/>
+    <main-header></main-header>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import SleepTracker from './components/SleepTracker'
+import MainHeader from './components/MainHeader'
 
 export default {
   name: 'App',
   components: {
-    SleepTracker
+    MainHeader
   }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+  @import './main.scss';
 </style>
