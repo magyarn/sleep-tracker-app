@@ -125,7 +125,7 @@ export default {
   }
   .about-text {
     @media (max-width: 991px) {
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
   }
 }
