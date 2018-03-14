@@ -76,12 +76,15 @@ export default {
 <style lang="scss">
 @import '../main.scss';
 .intro-wrapper {
-  background-image: url('/my-sleep-score/static/img/background.png');
+  background-image: url('../../static/img/background.png');
   background-repeat: repeat-y;
   background-position: center;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: contain;
   color: $white;
+  @media (max-width: 576px) {
+    background-image: url('../../static/img/mobile-background.png')
+  }
 }
 
 .homepage-hero {

@@ -22,10 +22,10 @@
                  <h4 class="strategy-title">{{strategy.title}}</h4>
                </div>
                <b-button v-if="$mq.resize && $mq.below('576px') && !strategy.mobileShow" @click="strategy.mobileShow=!strategy.mobileShow" class="btn-outline-white">
-                 <img src="../../static/img/down-arrow.png" alt="down arrow">
+                 <img src="/my-sleep-score/static/img/down-arrow.png" alt="down arrow">
                </b-button>
                <b-button v-if="$mq.resize && $mq.below('576px') && strategy.mobileShow" @click="strategy.mobileShow=!strategy.mobileShow" class="btn-outline-white">
-                 <img src="../../static/img/up-arrow.png" alt="up arrow">
+                 <img src="/my-sleep-score/static/img/up-arrow.png" alt="up arrow">
                </b-button>
              </div>
              <p v-if="strategy.mobileShow || $mq.above('576px')" class="strategy-text">{{strategy.text}}</p>
@@ -65,6 +65,9 @@ export default {
   background-size: cover;
   height: 100%;
   color: $white;
+  @media (max-width: 576px) {
+    background-image: url('/my-sleep-score/static/img/mobile-background.png')
+  }
 }
 
 .strategy-card {
