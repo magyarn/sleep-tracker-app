@@ -513,7 +513,7 @@ export default {
 }
 
 .sleep-entry-card-container {
-  margin: 1rem .5rem;
+  margin: 2rem 0;
   padding: 1rem;
   background: $darkBlue2;
 }
