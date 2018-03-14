@@ -1,6 +1,7 @@
 <template>
     <div v-if="!whyIsSaved" class="my-why-window">
       <h3>My Why</h3>
+      <b-button>+</b-button>
       <p>
         How is sleep impacting your life? What would you like to change?
         Consider cranky mornings with your partner, afternoon slumps at work,
