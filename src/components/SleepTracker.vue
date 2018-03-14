@@ -60,7 +60,7 @@
           <my-sleep-tips></my-sleep-tips>
         </b-card>
       </b-card-group>
-      <b-row class="night-cards">
+      <b-row class="my-3">
         <b-col>
           <b-row>
             <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
@@ -552,10 +552,6 @@ export default {
 .night-label {
   width: 35px;
   text-align: center;
-}
-
-.night-cards {
-  margin-top: .5rem;
 }
 
 .performed-habit {
