@@ -9,17 +9,17 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/my-sleep-score/',
+      path: '/',
       name: 'LandingPage',
       component: LandingPage
     },
     {
-      path: '/my-sleep-score/sleep-journal',
+      path: '/sleep-journal',
       name: 'SleepTracker',
       component: SleepTracker
     },
     {
-      path: '/my-sleep-score/sleep-strategies',
+      path: '/sleep-strategies',
       name: 'SleepStrategies',
       component: SleepStrategies
     }
