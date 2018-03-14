@@ -3,6 +3,11 @@
     <b-container>
       <b-row class="pt-4">
         <b-col class="homepage-hero">
+          <img
+            v-if="$mq.resize && $mq.below('767px')"
+            src="/my-sleep-score/static/img/moon-and-sheep.png"
+            alt="sheep sleeping on the moon"
+            class="moon-graphic">
           <h1 class="hero-heading">Go for 7</h1>
           <p class="hero-tagline">SEVEN HOURS OF SLEEP A NIGHT</p>
         </b-col>
@@ -22,7 +27,7 @@
           </p>
           <b-button to="/sleep-journal" size="lg" class="btn-success mt-4">Track My Sleep</b-button>
         </b-col>
-        <b-col xl="6" lg="6" md="6" class="moon-graphic">
+        <b-col v-if="$mq.resize && $mq.above('768px')" xl="6" lg="6" md="6" class="moon-graphic">
           <img src="/my-sleep-score/static/img/moon-and-sheep.png" alt="sheep sleeping on the moon">
         </b-col>
       </b-row>
@@ -91,14 +96,19 @@ export default {
   .hero-tagline {
     font-size: 2rem;
     color: $elephantGrey;
+    @media (max-width: 767px) {
+      font-size: 1rem;
+    }
   }
 }
+
 .moon-graphic {
   text-align: right;
   margin: 3rem 0;
-  @media (max-width: 761px) {
+  @media (max-width: 767px) {
+    margin: 1.5rem 0;
     text-align: center;
-    margin: 7rem 0;
+    max-width: 100px;
   }
 }
 
