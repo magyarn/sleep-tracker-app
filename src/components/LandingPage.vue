@@ -39,7 +39,7 @@
               allowfullscreen>
             </iframe>
           </b-col>
-          <b-col class="about-text pl-4" lg="6" xl="6">
+          <b-col class="about-text" lg="6" xl="6">
             <p>
               The Sleep Challenge was developed by the University of Michigan’s
               Sleep Disorders Center as a part of the Teach-Out entitled
@@ -124,7 +124,9 @@ export default {
     }
   }
   .about-text {
+    padding-left: 1rem;
     @media (max-width: 991px) {
+      padding-left: 0;
       margin-top: 1rem;
     }
   }
