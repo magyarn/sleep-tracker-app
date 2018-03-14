@@ -5,9 +5,11 @@ import VueRouter from 'vue-router'
 import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
+import vMediaQuery from 'v-media-query'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
+Vue.use(vMediaQuery)
 
 Vue.config.productionTip = false
 

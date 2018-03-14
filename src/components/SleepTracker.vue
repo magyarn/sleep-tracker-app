@@ -20,41 +20,51 @@
       </b-row>
       <b-card-group deck>
         <b-card class="sleep-entry-card sleep-tips-card">
-          <h3>Overview</h3>
-          <p v-if="averageHoursOfSleep">Average: {{averageHoursOfSleep}} hours</p>
-          <p v-else>Average: Nothing to report yet</p>
-          <ul class="stat-list">
-            <li v-for="(category, index) in getStreaks()" :key="index" >
-              <b-row class="my-2">
-                <b-col lg="3" xl="5">
-                  <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
-                  <p v-else>{{streakLabels[index]}}</p>
-                </b-col>
-                <b-col v-if="index==0" class="desktop-days-row" lg="8" xl="7">
-                  <ul class="stat-streak">
-                    <li v-for="(night, index) in week" :key="index" class="night-label">{{night}}</li>
-                  </ul>
-                </b-col>
-                <b-col v-else lg="8" xl="7">
-                  <ul class="stat-streak">
-                    <li v-for="(day, index) in category.data" :key="index + 100">
-                      <span v-if="day" class="performed-habit">
-                        <img class="bonus-badge" :src="performedHabitImage(category)" alt="">
-                      </span>
-                      <span v-else class="failed-habit">
-                        <img class="bonus-badge" :src="failedHabitImage(category)" alt="">
-                      </span>
-                    </li>
-                    <li v-for="(day, index) in days" :key="index">
-                      <span class="neutral-habit">
-                        <img class="bonus-badge" :src="neutralHabitImage(category)" alt="">
-                      </span>
-                    </li>
-                  </ul>
-                </b-col>
-              </b-row>
-            </li>
-          </ul>
+          <section class="why-section-header">
+            <h3>My Week</h3>
+            <b-button v-if="$mq.resize && $mq.below('576px') && !showWeek" @click="showWeek=!showWeek" class="btn-outline-white">
+              <img src="../../static/img/down-arrow.png" alt="down arrow">
+            </b-button>
+            <b-button v-if="$mq.resize && $mq.below('576px') && showWeek" @click="showWeek=!showWeek" class="btn-outline-white">
+              <img src="../../static/img/up-arrow.png" alt="up arrow">
+            </b-button>
+          </section>
+          <section v-if="showWeek || $mq.above('576px')">
+            <p v-if="averageHoursOfSleep">Average: {{averageHoursOfSleep}} hours</p>
+            <p v-else>Average: Nothing to report yet</p>
+            <ul class="stat-list">
+              <li v-for="(category, index) in getStreaks()" :key="index" >
+                <b-row class="my-2">
+                  <b-col lg="3" xl="5">
+                    <p v-if="index==0" class="desktop-days-row">{{streakLabels[index]}}</p>
+                    <p v-else>{{streakLabels[index]}}</p>
+                  </b-col>
+                  <b-col v-if="index==0" class="desktop-days-row" lg="8" xl="7">
+                    <ul class="stat-streak">
+                      <li v-for="(night, index) in week" :key="index" class="night-label">{{night}}</li>
+                    </ul>
+                  </b-col>
+                  <b-col v-else lg="8" xl="7">
+                    <ul class="stat-streak">
+                      <li v-for="(day, index) in category.data" :key="index + 100">
+                        <span v-if="day" class="performed-habit">
+                          <img class="bonus-badge" :src="performedHabitImage(category)" alt="">
+                        </span>
+                        <span v-else class="failed-habit">
+                          <img class="bonus-badge" :src="failedHabitImage(category)" alt="">
+                        </span>
+                      </li>
+                      <li v-for="(day, index) in days" :key="index">
+                        <span class="neutral-habit">
+                          <img class="bonus-badge" :src="neutralHabitImage(category)" alt="">
+                        </span>
+                      </li>
+                    </ul>
+                  </b-col>
+                </b-row>
+              </li>
+            </ul>
+          </section>
         </b-card>
         <b-card class="sleep-entry-card sleep-tips-card">
           <my-sleep-tips></my-sleep-tips>
@@ -192,6 +202,7 @@ export default {
   },
   data () {
     return {
+      showWeek: false,
       week: [1, 2, 3, 4, 5, 6, 7],
       streakLabels: [
         'Nights',
@@ -607,6 +618,12 @@ export default {
 .bonus-badge {
   height: 20px;
   width: 20px;
+}
+
+.why-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 </style>

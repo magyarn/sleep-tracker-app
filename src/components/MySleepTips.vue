@@ -1,6 +1,15 @@
 <template>
-    <div class="sleep-tips-window">
-      <h3>Sleep Tips for Me</h3>
+    <div class="">
+      <section class="why-section-header">
+        <h3>Sleep Tips for Me</h3>
+        <b-button v-if="$mq.resize && $mq.below('576px') && !showTips" @click="showTips=!showTips" class="btn-outline-white">
+          <img src="../../static/img/down-arrow.png" alt="down arrow">
+        </b-button>
+        <b-button v-if="$mq.resize && $mq.below('576px') && showTips" @click="showTips=!showTips" class="btn-outline-white">
+          <img src="../../static/img/up-arrow.png" alt="up arrow">
+        </b-button>
+      </section>
+      <section v-if="showTips || $mq.above('576px')">
         <div v-if="!entries.length" class="tips-empty-state">
           <img class="sleeping-sheep" src="/my-sleep-score/static/img/sheep.png" alt="sleeping sheep">
           <p>Personalized tips will appear here each time you enter a new Night.</p>
@@ -15,6 +24,7 @@
           <img class="sleeping-sheep" src="/my-sleep-score/static/img/sheep-queen.png" alt="sleeping sheep with a crown">
           <p>Congrats! You successfully followed all possible sleep strategies. Keep up the good work!</p>
         </div>
+      </section>
     </div>
 </template>
 
@@ -23,6 +33,11 @@ import store from '../store'
 export default {
   name: 'MySleepTips',
   store,
+  data () {
+    return {
+      showTips: false
+    }
+  },
   computed: {
     mostRecentFails () {
       return this.getFails()
@@ -77,12 +92,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../main.scss';
-.sleep-tips-window {
-  background-color: $darkBlue2;
-  color: $white;
-  border-radius: $radius;
-  min-height: 150px;
-}
 
 .tip-list {
   list-style: none;
@@ -100,5 +109,11 @@ export default {
   .sleeping-sheep {
     margin-bottom: 4rem;
   }
+}
+
+.why-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
