@@ -70,103 +70,110 @@
           <my-sleep-tips></my-sleep-tips>
         </b-card>
       </b-card-group>
-      <b-row class="my-3">
-        <b-col>
-          <b-row>
-            <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
-              <b-card
-                 class="mb-4 sleep-entry-card"
-                 no-body>
-                 <b-card-body>
-                   <h3>Night 1</h3>
-                   <p>Nothing to report yet</p>
-                   <ul class="habit-list">
-                     <li class="neutral">
-                       <img src="/my-sleep-score/static/img/moon-white.png" alt="moon" class="bonus-badge">
-                     </li>
-                     <li class="neutral">
-                       <img src="/my-sleep-score/static/img/alarm-white.png" alt="alarm" class="bonus-badge">
-                     </li>
-                     <li class="neutral">
-                       <img src="/my-sleep-score/static/img/phone-white.png" alt="phone" class="bonus-badge">
-                     </li>
-                     <li class="neutral">
-                       <img src="/my-sleep-score/static/img/light-white.png" alt="light" class="bonus-badge">
-                     </li>
-                     <li class="neutral">
-                       <img src="/my-sleep-score/static/img/wine-white.png" alt="wine glass" class="bonus-badge">
-                     </li>
-                     <li class="neutral">
-                       <img src="/my-sleep-score/static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
-                     </li>
-                   </ul>
-                 </b-card-body>
-                 <b-card-footer style="padding: .75rem">
-                   <b-button v-b-modal.modal3 class="mr-2 btn-outline-white">+ New Night</b-button>
-                 </b-card-footer>
-              </b-card>
-            </b-col>
-            <b-col v-for="(entry, index) in entries" :key="index" xl="4" lg="6" md="12" sm="12" xs="12">
-              <b-card
-                 class="mb-4 sleep-entry-card sleep-tips-card"
-                 no-body>
-                 <b-card-body>
-                   <h3>Night {{index + 1}}</h3>
-                   <p>{{entry.hours}} hours •
-                     <span v-if="entry.rested==0">Exhausted</span>
-                     <span v-if="entry.rested==1">Not well rested</span>
-                     <span v-if="entry.rested==2">Somewhat rested</span>
-                     <span v-if="entry.rested==3">Pretty rested</span>
-                     <span v-if="entry.rested==4">Very well rested</span>
-                   </p>
-                   <ul class="habit-list">
-                     <li v-if="entry.bedtime" class="performed">
-                       <img src="/my-sleep-score/static/img/moon.png" alt="moon" class="bonus-badge">
-                     </li>
-                     <li v-else class="failed">
-                       <img src="/my-sleep-score/static/img/moon-red.png" alt="moon" class="bonus-badge">
-                     </li>
-                     <li v-if="entry.waketime" class="performed">
-                       <img src="/my-sleep-score/static/img/alarm.png" alt="alarm clock" class="bonus-badge">
-                     </li>
-                     <li v-else class="failed">
-                       <img src="/my-sleep-score/static/img/alarm-red.png" alt="alarm" class="bonus-badge">
-                     </li>
-                     <li v-if="entry.screens" class="performed">
-                       <img src="/my-sleep-score/static/img/phone.png" alt="phone" class="bonus-badge">
-                     </li>
-                     <li v-else class="failed">
-                       <img src="/my-sleep-score/static/img/phone-red.png" alt="phone" class="bonus-badge">
-                     </li>
-                     <li v-if="entry.brightLights" class="performed">
-                       <img src="/my-sleep-score/static/img/light.png" alt="light" class="bonus-badge">
-                     </li>
-                     <li v-else class="failed">
-                       <img src="/my-sleep-score/static/img/light-red.png" alt="light" class="bonus-badge">
-                     </li>
-                     <li v-if="entry.noAlcohol" class="performed">
-                       <img src="/my-sleep-score/static/img/wine.png" alt="wine glass" class="bonus-badge">
-                     </li>
-                     <li v-else class="failed">
-                       <img src="/my-sleep-score/static/img/wine-red.png" alt="wine glass" class="bonus-badge">
-                     </li>
-                     <li v-if="entry.noCaffeine" class="performed">
-                       <img src="/my-sleep-score/static/img/coffee.png" alt="coffee cup" class="bonus-badge">
-                     </li>
-                     <li v-else class="failed">
-                       <img src="/my-sleep-score/static/img/coffee-red.png" alt="coffee cup" class="bonus-badge">
-                     </li>
-                   </ul>
-                 </b-card-body>
-                 <b-card-footer style="padding: .75rem">
-                   <b-button class="mr-2 btn-outline-white" @click="showEditDayModal(index)">Edit</b-button>
-                   <b-button class="mr-2" variant="outline-danger" @click="deleteEntry(index)">Delete</b-button>
-                 </b-card-footer>
-              </b-card>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
+      <div class="sleep-entry-card-container">
+        <div class="previous-night-header">
+          <h3 class="strategy-title">Previous Nights</h3>
+          <b-button v-if="$mq.resize && $mq.below('576px') && !entriesMobileShow" @click="entriesMobileShow=!entriesMobileShow" class="btn-outline-white">
+            <img src="../../static/img/down-arrow.png" alt="down arrow">
+          </b-button>
+          <b-button v-if="$mq.resize && $mq.below('576px') && entriesMobileShow" @click="entriesMobileShow=!entriesMobileShow" class="btn-outline-white">
+            <img src="../../static/img/up-arrow.png" alt="up arrow">
+          </b-button>
+        </div>
+        <b-row v-if="entriesMobileShow || $mq.above('576px')">
+          <b-col v-if="entries.length==0" xs="12" sm="12" md="6" lg="4" xl="4">
+            <b-card
+               class="sleep-entry-card night-card"
+               no-body>
+               <b-card-body>
+                 <h3>Night 1</h3>
+                 <p>Nothing to report yet</p>
+                 <ul class="habit-list">
+                   <li class="neutral">
+                     <img src="/my-sleep-score/static/img/moon-white.png" alt="moon" class="bonus-badge">
+                   </li>
+                   <li class="neutral">
+                     <img src="/my-sleep-score/static/img/alarm-white.png" alt="alarm" class="bonus-badge">
+                   </li>
+                   <li class="neutral">
+                     <img src="/my-sleep-score/static/img/phone-white.png" alt="phone" class="bonus-badge">
+                   </li>
+                   <li class="neutral">
+                     <img src="/my-sleep-score/static/img/light-white.png" alt="light" class="bonus-badge">
+                   </li>
+                   <li class="neutral">
+                     <img src="/my-sleep-score/static/img/wine-white.png" alt="wine glass" class="bonus-badge">
+                   </li>
+                   <li class="neutral">
+                     <img src="/my-sleep-score/static/img/coffee-white.png" alt="coffee cup" class="bonus-badge">
+                   </li>
+                 </ul>
+               </b-card-body>
+               <b-card-footer style="padding: .75rem">
+                 <b-button v-b-modal.modal3 class="mr-2 btn-outline-white">+ New Night</b-button>
+               </b-card-footer>
+            </b-card>
+          </b-col>
+          <b-col v-for="(entry, index) in entries" :key="index" xl="4" lg="6" md="12" sm="12" xs="12">
+            <b-card
+               class="my-2 sleep-entry-card night-card"
+               no-body>
+               <b-card-body>
+                 <h3>Night {{index + 1}}</h3>
+                 <p>{{entry.hours}} hours •
+                   <span v-if="entry.rested==0">Exhausted</span>
+                   <span v-if="entry.rested==1">Not well rested</span>
+                   <span v-if="entry.rested==2">Somewhat rested</span>
+                   <span v-if="entry.rested==3">Pretty rested</span>
+                   <span v-if="entry.rested==4">Very well rested</span>
+                 </p>
+                 <ul class="habit-list">
+                   <li v-if="entry.bedtime" class="performed">
+                     <img src="/my-sleep-score/static/img/moon.png" alt="moon" class="bonus-badge">
+                   </li>
+                   <li v-else class="failed">
+                     <img src="/my-sleep-score/static/img/moon-red.png" alt="moon" class="bonus-badge">
+                   </li>
+                   <li v-if="entry.waketime" class="performed">
+                     <img src="/my-sleep-score/static/img/alarm.png" alt="alarm clock" class="bonus-badge">
+                   </li>
+                   <li v-else class="failed">
+                     <img src="/my-sleep-score/static/img/alarm-red.png" alt="alarm" class="bonus-badge">
+                   </li>
+                   <li v-if="entry.screens" class="performed">
+                     <img src="/my-sleep-score/static/img/phone.png" alt="phone" class="bonus-badge">
+                   </li>
+                   <li v-else class="failed">
+                     <img src="/my-sleep-score/static/img/phone-red.png" alt="phone" class="bonus-badge">
+                   </li>
+                   <li v-if="entry.brightLights" class="performed">
+                     <img src="/my-sleep-score/static/img/light.png" alt="light" class="bonus-badge">
+                   </li>
+                   <li v-else class="failed">
+                     <img src="/my-sleep-score/static/img/light-red.png" alt="light" class="bonus-badge">
+                   </li>
+                   <li v-if="entry.noAlcohol" class="performed">
+                     <img src="/my-sleep-score/static/img/wine.png" alt="wine glass" class="bonus-badge">
+                   </li>
+                   <li v-else class="failed">
+                     <img src="/my-sleep-score/static/img/wine-red.png" alt="wine glass" class="bonus-badge">
+                   </li>
+                   <li v-if="entry.noCaffeine" class="performed">
+                     <img src="/my-sleep-score/static/img/coffee.png" alt="coffee cup" class="bonus-badge">
+                   </li>
+                   <li v-else class="failed">
+                     <img src="/my-sleep-score/static/img/coffee-red.png" alt="coffee cup" class="bonus-badge">
+                   </li>
+                 </ul>
+               </b-card-body>
+               <b-card-footer style="padding: .75rem">
+                 <b-button class="mr-2 btn-outline-white" @click="showEditDayModal(index)">Edit</b-button>
+                 <b-button class="mr-2" variant="outline-danger" @click="deleteEntry(index)">Delete</b-button>
+               </b-card-footer>
+            </b-card>
+          </b-col>
+        </b-row>
+      </div>
       <feedback-modal ref="myModalRef"></feedback-modal>
       <edit-day-modal ref="myModalRef2"></edit-day-modal>
       <add-day-modal ref="myModalRef3"></add-day-modal>
@@ -203,6 +210,7 @@ export default {
   data () {
     return {
       showWeek: false,
+      entriesMobileShow: false,
       week: [1, 2, 3, 4, 5, 6, 7],
       streakLabels: [
         'Nights',
@@ -491,7 +499,22 @@ export default {
   color: $white;
 }
 
+.previous-night-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .sleep-entry-card {
+  background: $darkBlue2;
+  &.night-card {
+    border: 1.5px solid #314268;
+  }
+}
+
+.sleep-entry-card-container {
+  margin: 1rem .5rem;
+  padding: 1rem;
   background: $darkBlue2;
 }
 

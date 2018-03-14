@@ -49,9 +49,7 @@ export default {
   },
   methods: {
     toggleStrategy (index) {
-      console.log(this.showStrategies[index])
       this.showStrategies[index] = !this.showStrategies[index]
-      console.log(this.showStrategies)
     }
   }
 }

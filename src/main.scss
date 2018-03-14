@@ -40,8 +40,8 @@ body, html {
   background-color: transparent;
   cursor: pointer;
   &:hover {
-    background-color: $white;
-    color: $darkBlue1;
+    background-color: $elephantGrey;
+    border: 1px solid $elephantGrey;
   }
 }
 
