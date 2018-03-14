@@ -4,7 +4,7 @@
       <b-navbar toggleable class="sleep-nav px-0" type="dark">
         <b-navbar-brand to="/">
           <img class="logo" src="/my-sleep-score/static/img/sheep.png" alt="sheep">
-          SleepChallenge
+          Sleep Challenge
         </b-navbar-brand>
         <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
         <b-collapse is-nav id="nav_dropdown_collapse">
