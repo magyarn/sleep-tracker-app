@@ -48,8 +48,10 @@
             </p>
             <p>
               The #SleepChallenge was developed by the University of Michigan’s
-              Sleep Disorders Center as a part of the Teach-Out entitled “Sleep
-              Deprivation: Habits, Solutions, and Strategies”.
+              Sleep Disorders Center as a part of the Teach-Out entitled
+              <a href="https://www.coursera.org/learn/sleepdeprivation">
+                “Sleep Deprivation: Habits, Solutions, and Strategies”.
+              </a>
             </p>
             <p>
               The Teach-Out will be open from <strong>Monday March 12th through Sunday,
