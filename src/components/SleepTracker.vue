@@ -516,6 +516,9 @@ export default {
   margin: 2rem 0;
   padding: 1rem;
   background: $darkBlue2;
+  @media (max-width: 576px) {
+    margin-top: 1rem;
+  }
 }
 
 .journal-header {
