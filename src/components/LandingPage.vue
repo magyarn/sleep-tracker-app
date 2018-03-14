@@ -41,13 +41,7 @@
           </b-col>
           <b-col class="about-text pl-4" lg="6" xl="6">
             <p>
-              The Sleep Challenge is a week long commitment to track your sleep
-              and improve on any habits that might be contributing to your partial
-              sleep deprivation. It’s a fun way to learn strategies to improve your
-              sleep habits and challenge your friends and family to do the same!
-            </p>
-            <p>
-              The #SleepChallenge was developed by the University of Michigan’s
+              The Sleep Challenge was developed by the University of Michigan’s
               Sleep Disorders Center as a part of the Teach-Out entitled
               <a href="https://www.coursera.org/learn/sleepdeprivation">
                 “Sleep Deprivation: Habits, Solutions, and Strategies”.
@@ -127,6 +121,11 @@ export default {
     @media (max-width: 761px) {
       margin-top: 2rem;
       margin-bottom: 1rem;
+    }
+  }
+  .about-text {
+    @media (max-width: 991px) {
+      margin-top: 2rem;
     }
   }
 }
