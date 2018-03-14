@@ -2,7 +2,10 @@
   <header>
     <b-container>
       <b-navbar toggleable class="sleep-nav px-0" type="dark">
-        <b-navbar-brand to="/my-sleep-score/">#SleepChallenge</b-navbar-brand>
+        <b-navbar-brand to="/my-sleep-score/">
+          <img class="logo" src="/my-sleep-score/static/img/sheep.png" alt="sheep">
+          SleepChallenge
+        </b-navbar-brand>
         <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
         <b-collapse is-nav id="nav_dropdown_collapse">
           <b-navbar-nav role="navigation" class="ml-auto">
@@ -31,6 +34,11 @@ header {
   width: 100%;
   color: $white;
   z-index: 1000;
+}
+
+.logo {
+  max-width: 40px;
+  margin-right: .5rem;
 }
 
 .site-name {

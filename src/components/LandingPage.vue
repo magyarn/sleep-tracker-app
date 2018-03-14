@@ -27,12 +27,90 @@
         </b-col>
       </b-row>
     </b-container>
+    <div class="about-section">
+      <b-container>
+        <h2 class="about-heading">About the Challenge</h2>
+        <b-row>
+          <b-col lg="6" xl="6">
+            <iframe
+              class="youtube-video"
+              src="https://www.youtube.com/embed/4j2cvAZYaUg"
+              frameborder="0" allow="autoplay; encrypted-media"
+              allowfullscreen>
+            </iframe>
+          </b-col>
+          <b-col class="about-text pl-4" lg="6" xl="6">
+            <p>
+              The Sleep Challenge is a week long commitment to track your sleep
+              and improve on any habits that might be contributing to your partial
+              sleep deprivation. It’s a fun way to learn strategies to improve your
+              sleep habits and challenge your friends and family to do the same!
+            </p>
+            <p>
+              The #SleepChallenge was developed by the University of Michigan’s
+              Sleep Disorders Center as a part of the Teach-Out entitled “Sleep
+              Deprivation: Habits, Solutions, and Strategies”.
+            </p>
+            <p>
+              The Teach-Out will be open from <strong>Monday March 12th through Sunday,
+                March 25th</strong>.
+            </p>
+            <p>
+              To learn more about this and other Teach-Outs, visit
+              <a href="http://ai.umich.edu/teach-out/">teachout.org</a>.
+            </p>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <b-row>
+      <b-col>
+        <ul class="share-button-list">
+          <li>
+            <b-button
+              href="https://www.facebook.com/sharer.php?u=https://magyarn.gitlab.io/my-sleep-score/"
+              target="_blank"
+              class="share-btn">
+                <img src="/my-sleep-score/static/img/facebook-white.png" alt="Facebook">
+            </b-button>
+          </li>
+          <li>
+            <b-button
+              href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://magyarn.gitlab.io/my-sleep-score/"
+              target="_blank"
+              class="share-btn">
+                <img src="/my-sleep-score/static/img/linked-in-white.png" alt="Linked In">
+            </b-button>
+          </li>
+          <li>
+            <b-button
+              href="https://twitter.com/share?url=https://magyarn.gitlab.io/my-sleep-score/&amp;text=Who%20wants%20to%20take%20the%20Sleep%20Challenge%20with%20me?!&amp;hashtags=sleepChallenge"
+              target="_blank"
+              class="share-btn">
+                <img src="/my-sleep-score/static/img/twitter-white.png" alt="Twitter">
+            </b-button>
+          </li>
+          <li>
+            <b-button
+              href="mailto:?Subject=Sleep%20Challenge&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://magyarn.gitlab.io/my-sleep-score/"
+              target="_blank"
+              class="share-btn">
+                <img src="/my-sleep-score/static/img/email-white.png" alt="Email">
+            </b-button>
+          </li>
+        </ul>
+      </b-col>
+    </b-row>
   </main>
 </template>
 
 <script>
+import Footer from './Footer'
 export default {
-  name: 'LandingPage'
+  name: 'LandingPage',
+  components: {
+    Footer
+  }
 }
 </script>
 
@@ -68,6 +146,60 @@ export default {
   @media (max-width: 761px) {
     text-align: center;
     margin: 7rem 0;
+  }
+}
+
+.about-section {
+  background-image: url('/my-sleep-score/static/img/clouds-bg.png');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  height: fit-content;
+  color: $darkBlue1;
+  padding-top: 20rem;
+  padding-bottom: 7rem;
+  margin-top: 3rem;
+  .youtube-video {
+    width: 100%;
+    height: 315px;;
+  }
+  .about-heading {
+    margin-bottom: 3rem;
+    @media (max-width: 761px) {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.share-button-list {
+  margin: 3rem 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  li {
+    padding: 1rem .5rem;
+  }
+  .share-btn {
+    height: 55px;
+    width: 55px;
+    border: 1px solid $white;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease;
+    &:hover {
+      background-color: $elephantGrey;
+      border: 1px solid rgba(255, 255, 255, 0);
+    }
+    img {
+      max-height: 25px;
+    }
   }
 }
 </style>
