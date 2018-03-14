@@ -136,7 +136,6 @@ export default {
   .about-text {
     padding-left: 1rem;
     @media (max-width: 991px) {
-      padding-left: 0;
       margin-top: 1rem;
     }
   }
