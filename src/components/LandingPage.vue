@@ -20,7 +20,7 @@
             Take action to learn about your sleep habits and improve your quality
             of sleep by tracking your patterns on this site.
           </p>
-          <b-button to="/my-sleep-score/sleep-journal" size="lg" class="btn-success mt-4">Track My Sleep</b-button>
+          <b-button to="/sleep-journal" size="lg" class="btn-success mt-4">Track My Sleep</b-button>
         </b-col>
         <b-col xl="6" lg="6" md="6" class="moon-graphic">
           <img src="/my-sleep-score/static/img/moon-and-sheep.png" alt="sheep sleeping on the moon">
