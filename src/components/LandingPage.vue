@@ -68,7 +68,7 @@
 
 <script>
 export default {
-  name: 'LandingPage',
+  name: 'LandingPage'
 }
 </script>
 
@@ -80,7 +80,6 @@ export default {
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
-  height: 100vh;
   color: $white;
 }
 

@@ -15,12 +15,20 @@
              class="mb-4 strategy-card"
              hide-header>
              <div class="strategy-header">
-               <span class="icon-wrapper">
-                 <img class="strategy-icon" :src="strategy.icon" alt="">
-               </span>
-               <h4 class="strategy-title">{{strategy.title}}</h4>
+               <div class="strategy-header">
+                 <span class="icon-wrapper">
+                   <img class="strategy-icon" :src="strategy.icon" alt="">
+                 </span>
+                 <h4 class="strategy-title">{{strategy.title}}</h4>
+               </div>
+               <b-button v-if="$mq.resize && $mq.below('576px') && !strategy.mobileShow" @click="strategy.mobileShow=!strategy.mobileShow" class="btn-outline-white">
+                 <img src="../../static/img/down-arrow.png" alt="down arrow">
+               </b-button>
+               <b-button v-if="$mq.resize && $mq.below('576px') && strategy.mobileShow" @click="strategy.mobileShow=!strategy.mobileShow" class="btn-outline-white">
+                 <img src="../../static/img/up-arrow.png" alt="up arrow">
+               </b-button>
              </div>
-             <p>{{strategy.text}}</p>
+             <p v-if="strategy.mobileShow || $mq.above('576px')" class="strategy-text">{{strategy.text}}</p>
           </b-card>
         </b-col>
       </b-row>
@@ -35,7 +43,15 @@ export default {
   store,
   data () {
     return {
+      showStrategies: [false, false, false, false, false, false],
       strategies: this.$store.getters.strategies
+    }
+  },
+  methods: {
+    toggleStrategy (index) {
+      console.log(this.showStrategies[index])
+      this.showStrategies[index] = !this.showStrategies[index]
+      console.log(this.showStrategies)
     }
   }
 }
@@ -54,15 +70,29 @@ export default {
 }
 
 .strategy-card {
-  height: 200px;
+  height: 220px;
   background: $darkBlue2;
+  @media (min-width: 577px) and (max-width: 761px) {
+    height: 160px;
+  }
+  @media (min-width: 762px) and (max-width: 979px) {
+    height: 190px;
+  }
+  @media (max-width: 576px) {
+    height: fit-content
+  }
   .strategy-header {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    @media (max-width: 576px) {
+      justify-content: space-between;
+    }
     .strategy-title {
       margin-left: 1rem;
     }
+  }
+  .strategy-text {
+    margin-top: 1rem;
   }
 }
 
