@@ -2,7 +2,7 @@
   <b-modal
     ref="myModalRef3"
     id="modal3"
-    title="Add Entry"
+    title="New Night"
     header-text-variant="dark"
     body-text-variant="dark"
     hide-footer

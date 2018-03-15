@@ -48,3 +48,72 @@ body, html {
 .nav-link.active {
   color: $green;
 }
+
+// App-wide styles
+.habit-list,
+.stat-list,
+.stat-streak {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.stat-streak,
+.habit-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  .mobile-day-header {
+    display: none;
+    @media (max-width: 989px) {
+      display: block;
+      color: $elephantGrey;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+.performed-habit {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  border: 1px solid $green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.neutral-habit {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  border: 1px solid $elephantGrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.failed-habit {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  border: 1px solid $red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bonus-badge {
+  height: 20px;
+  width: 20px;
+}
+
+.sleep-entry-card {
+  background: $darkBlue2;
+  &.night-card {
+    border: 1.5px solid #314268;
+  }
+}

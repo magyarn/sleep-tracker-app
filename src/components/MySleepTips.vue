@@ -11,7 +11,7 @@
       </section>
       <section v-if="showTips || $mq.above('576px')">
         <div v-if="!entries.length" class="tips-empty-state">
-          <img class="sleeping-sheep" src="/my-sleep-score/static/img/sheep.png" alt="sleeping sheep">
+          <img class="sleeping-sheep" src="../../static/img/sheep.png" alt="sleeping sheep">
           <p>Personalized tips will appear here each time you enter a new Night.</p>
         </div>
         <ul v-if="mostRecentFails" class="tip-list mt-4">
@@ -21,7 +21,7 @@
           </li>
         </ul>
         <div v-if="entries.length && !mostRecentFails.length" class="tips-empty-state">
-          <img class="sleeping-sheep" src="/my-sleep-score/static/img/sheep-queen.png" alt="sleeping sheep with a crown">
+          <img class="sleeping-sheep" src="../../static/img/sheep-queen.png" alt="sleeping sheep with a crown">
           <p>Congrats! You successfully followed all possible sleep strategies. Keep up the good work!</p>
         </div>
       </section>

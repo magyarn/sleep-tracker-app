@@ -22,10 +22,10 @@
                  <h4 class="strategy-title">{{strategy.title}}</h4>
                </div>
                <b-button v-if="$mq.resize && $mq.below('576px') && !strategy.mobileShow" @click="strategy.mobileShow=!strategy.mobileShow" class="btn-outline-white">
-                 <img src="/my-sleep-score/static/img/down-arrow.png" alt="down arrow">
+                 <img src="../../static/img/down-arrow.png" alt="down arrow">
                </b-button>
                <b-button v-if="$mq.resize && $mq.below('576px') && strategy.mobileShow" @click="strategy.mobileShow=!strategy.mobileShow" class="btn-outline-white">
-                 <img src="/my-sleep-score/static/img/up-arrow.png" alt="up arrow">
+                 <img src="../../static/img/up-arrow.png" alt="up arrow">
                </b-button>
              </div>
              <p v-if="strategy.mobileShow || $mq.above('576px')" class="strategy-text">{{strategy.text}}</p>
@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 @import '../main.scss';
 .strategy-container {
-  background-image: url('/my-sleep-score/static/img/background.png');
+  background-image: url('../../static/img/background.png');
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
@@ -66,7 +66,7 @@ export default {
   height: 100%;
   color: $white;
   @media (max-width: 576px) {
-    background-image: url('/my-sleep-score/static/img/mobile-background.png')
+    background-image: url('../../static/img/mobile-background.png')
   }
 }
 

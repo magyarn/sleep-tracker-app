@@ -2,7 +2,7 @@
   <b-modal
     ref="myModalRef2"
     id="modal2"
-    title="Edit Entry"
+    title="Edit Night"
     header-text-variant="dark"
     body-text-variant="dark"
     hide-footer

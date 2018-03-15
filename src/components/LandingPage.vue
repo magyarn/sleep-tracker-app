@@ -5,7 +5,7 @@
         <b-col class="homepage-hero">
           <img
             v-if="$mq.resize && $mq.below('767px')"
-            src="/my-sleep-score/static/img/moon-and-sheep.png"
+            src="../../static/img/moon-and-sheep.png"
             alt="sheep sleeping on the moon"
             class="moon-graphic">
           <h1 class="hero-heading">Go for 7</h1>
@@ -28,7 +28,7 @@
           <b-button to="/sleep-journal" size="lg" class="btn-success mt-4">Track My Sleep</b-button>
         </b-col>
         <b-col v-if="$mq.resize && $mq.above('768px')" xl="6" lg="6" md="6" class="moon-graphic">
-          <img src="/my-sleep-score/static/img/moon-and-sheep.png" alt="sheep sleeping on the moon">
+          <img src="../../static/img/moon-and-sheep.png" alt="sheep sleeping on the moon">
         </b-col>
       </b-row>
     </b-container>
@@ -116,7 +116,7 @@ export default {
 }
 
 .about-section {
-  background-image: url('/my-sleep-score/static/img/clouds-bg.png');
+  background-image: url('../../static/img/clouds-bg.png');
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
