@@ -6,7 +6,7 @@
           <ul class="share-button-list">
             <li>
               <b-button
-                to="https://www.facebook.com/sharer.php?u=https://magyarn.gitlab.io/my-sleep-score/"
+                to="https://www.facebook.com/sharer.php?u=https://http://journal.sleepchallenge.solutions/#/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/facebook-white.png" alt="Facebook">
@@ -14,7 +14,7 @@
             </li>
             <li>
               <b-button
-                to="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://magyarn.gitlab.io/my-sleep-score/"
+                to="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://http://journal.sleepchallenge.solutions/#/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/linked-in-white.png" alt="Linked In">
@@ -22,7 +22,7 @@
             </li>
             <li>
               <b-button
-                to="https://twitter.com/share?url=https://magyarn.gitlab.io/my-sleep-score/&amp;text=Simple%20Share%20Buttons&amp;hashtags=sleepChallenge"
+                to="https://twitter.com/share?url=https://http://journal.sleepchallenge.solutions/#/&amp;text=Simple%20Share%20Buttons&amp;hashtags=sleepChallenge"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/twitter-white.png" alt="Twitter">
@@ -30,7 +30,7 @@
             </li>
             <li>
               <b-button
-                to="mailto:?Subject=Sleep%20Challenge&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://magyarn.gitlab.io/my-sleep-score/"
+                to="mailto:?Subject=Sleep%20Challenge&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://http://journal.sleepchallenge.solutions/#/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/email-white.png" alt="Email">
