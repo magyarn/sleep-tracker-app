@@ -6,7 +6,7 @@
           <ul class="share-button-list">
             <li>
               <b-button
-                href="https://www.facebook.com/sharer.php?u=https://http://journal.sleepchallenge.solutions/#/"
+                href="https://www.facebook.com/sharer.php?u=https://journal.sleepchallenge.solutions/#/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/facebook-white.png" alt="Facebook">
@@ -14,15 +14,15 @@
             </li>
             <li>
               <b-button
-                href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://http://journal.sleepchallenge.solutions/#/"
+                href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://journal.sleepchallenge.solutions/#/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/linked-in-white.png" alt="Linked In">
               </b-button>
             </li>
             <li>
-              <b-button
-                href="https://twitter.com/share?url=https://http://journal.sleepchallenge.solutions/#/&amp;text=Simple%20Share%20Buttons&amp;hashtags=sleepChallenge"
+              <b-button>
+                href="https://twitter.com/share?url=https://journal.sleepchallenge.solutions/#/&amp;text=Simple%20Share%20Buttons&amp;hashtags=sleepChallenge"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/twitter-white.png" alt="Twitter">
@@ -30,7 +30,7 @@
             </li>
             <li>
               <b-button
-                href="mailto:?Subject=Sleep%20Challenge&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://http://journal.sleepchallenge.solutions/#/"
+                href="mailto:?Subject=Sleep%20Challenge&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://journal.sleepchallenge.solutions/#/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/email-white.png" alt="Email">
