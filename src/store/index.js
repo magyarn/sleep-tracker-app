@@ -25,7 +25,16 @@ export default new Vuex.Store({
       text: 'I want to improve my sleep because...'
     },
     entries: [],
-    entryToEdit: null,
+    entryToEdit: {
+      hours: 0,
+      rested: 0,
+      bedtime: false,
+      waketime: false,
+      screens: false,
+      brightLights: false,
+      noAlcohol: false,
+      noCaffeine: false
+    },
     dailyScore: 0,
     strategies: [
       {

@@ -47,7 +47,6 @@
           </b-col>
         </b-row>
       </div>
-      <edit-day-modal ref="myModalRef2"></edit-day-modal>
       <add-day-modal ref="myModalRef3"></add-day-modal>
       <clear-entries-modal ref="myModalRef4"></clear-entries-modal>
     </b-container>

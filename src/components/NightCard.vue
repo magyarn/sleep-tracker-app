@@ -54,15 +54,25 @@
        <b-button class="mr-2 btn-outline-white" @click="showEditDayModal(index)">Edit</b-button>
        <b-button class="mr-2" variant="outline-danger" @click="deleteEntry(index)">Delete</b-button>
      </b-card-footer>
+     <edit-day-modal ref="myModalRef2"></edit-day-modal>
   </b-card>
 </template>
 
 <script>
 import store from '../store'
+import EditDayModal from './EditDayModal'
 export default {
   name: 'NightCard',
   store,
   props: ['entry', 'index'],
+  components: {
+    EditDayModal
+  },
+  computed: {
+    entries () {
+      return this.$store.getters.entries
+    }
+  },
   methods: {
     showEditDayModal (index) {
       const entryToEdit = this.entries[index]
