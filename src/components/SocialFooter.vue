@@ -21,7 +21,7 @@
               </b-button>
             </li>
             <li>
-              <b-button>
+              <b-button
                 href="https://twitter.com/share?url=https://journal.sleepchallenge.solutions/#/&amp;text=Simple%20Share%20Buttons&amp;hashtags=sleepChallenge"
                 target="_blank"
                 class="share-btn">
