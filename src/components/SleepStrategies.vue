@@ -4,8 +4,9 @@
       <b-row class="pt-4">
         <b-col>
           <h2 class="my-4">Sleep Strategies</h2>
-          <p class="mb-4">Review the strategies below. Do any of them make you think of habits
-            you’d like to change? Which sound most appealing to you?</p>
+          <p class="mb-4">Review the strategies below, then go to
+            <a href="http://journal.sleepchallenge.solutions/#/sleep-journal/">My Sleep Journal</a>
+            to begin your reflection.</p>
         </b-col>
       </b-row>
       <b-row class="my-4">

@@ -9,9 +9,9 @@
         </b-col>
       </b-row>
       <p>
-        Below is a private journal for
-        recording your sleep habits and goals. You can return here
-        anytime in the future and your entries will still be here.
+        Below is an individual journal for
+        recording your sleep habits and goals. Get started by filling out the
+        My Why section, and clicking the above button to add a new Night.
       </p>
       <b-row>
         <b-col>
