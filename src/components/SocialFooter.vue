@@ -6,7 +6,7 @@
           <ul class="share-button-list">
             <li>
               <b-button
-                href="https://www.facebook.com/sharer.php?u=https://journal.sleepchallenge.solutions/#/"
+                href="https://www.facebook.com/sharer/sharer.php?u=http%3A//journal.sleepchallenge.solutions/%23/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/facebook-white.png" alt="Facebook">
@@ -14,7 +14,7 @@
             </li>
             <li>
               <b-button
-                href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://journal.sleepchallenge.solutions/#/"
+                href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A//journal.sleepchallenge.solutions/%23/&title=Sleep%20Challenge&summary=&source="
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/linked-in-white.png" alt="Linked In">
@@ -22,7 +22,7 @@
             </li>
             <li>
               <b-button
-                href="https://twitter.com/share?url=https://journal.sleepchallenge.solutions/#/&amp;text=Simple%20Share%20Buttons&amp;hashtags=sleepChallenge"
+                href="https://twitter.com/home?status=http%3A//journal.sleepchallenge.solutions/%23/"
                 target="_blank"
                 class="share-btn">
                   <img src="../../static/img/twitter-white.png" alt="Twitter">
