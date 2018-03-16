@@ -39,6 +39,11 @@
           </ul>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col class="link-container">
+          <a class="feedback-link" href="mailto:sleep-challenge-feedback@umich.edu?Subject=Sleep%20Challenge%20Feedback" _target="blank">Send Feedback</a>
+        </b-col>
+      </b-row>
     </b-container>
   </footer>
 </template>
@@ -52,7 +57,7 @@ export default {
 <style lang="scss">
 @import '../main.scss';
 .share-button-list {
-  margin: 3rem 0;
+  margin-top: 3rem;
   padding-left: 0;
   list-style: none;
   display: flex;
@@ -79,6 +84,20 @@ export default {
     img {
       max-height: 25px;
     }
+  }
+}
+
+.link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.feedback-link {
+  color: white;
+  transition: all .2s ease;
+  &:hover {
+    color: $elephantGrey;
   }
 }
 </style>

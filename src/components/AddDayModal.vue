@@ -8,41 +8,48 @@
     hide-footer
     @hide="clearCurrentDataPoints()">
     <b-container>
-      <ul class="habit-icon-wrapper mt-2 mb-4">
+      <div v-if="modalPage==0">
+        <p>We're excited you want to track your sleep!</p>
+        <p>Your sleep entries are stored in your browser. If you visit this page
+           from a different browser or clear your browser's cache, you will
+           not see your previous entries. Happy tracking!
+         </p>
+      </div>
+      <ul v-if="modalPage > 0" class="habit-icon-wrapper mt-2 mb-4">
         <li v-for="(icon, index) in habitIcons" :key="index">
           <span
-            v-if="currentModalPage(index) && habitIsUnevaluated(index)"
+            v-if="currentModalPage(index + 1) && habitIsUnevaluated(index + 1)"
             class="habit-icon-border current-page-grey">
               <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
           </span>
           <span
-            v-if="!currentModalPage(index) && habitIsUnevaluated(index)"
+            v-if="!currentModalPage(index + 1) && habitIsUnevaluated(index + 1)"
             class="habit-icon-border">
               <img class="habit-icon" :src="icon.pathWhite" :alt="icon.alt">
           </span>
           <span
-            v-if="currentModalPage(index) && habitIsSatisfactory(index)"
+            v-if="currentModalPage(index + 1) && habitIsSatisfactory(index + 1)"
             class="habit-icon-border current-page-green">
               <img class="habit-icon" :src="icon.pathGreen" :alt="icon.alt">
           </span>
           <span
-            v-if="currentModalPage(index) && habitIsUnsatisfactory(index)"
+            v-if="currentModalPage(index + 1) && habitIsUnsatisfactory(index + 1)"
             class="habit-icon-border current-page-red">
               <img class="habit-icon" :src="icon.pathRed" :alt="icon.alt">
           </span>
           <span
-            v-if="!currentModalPage(index) && habitIsSatisfactory(index)"
+            v-if="!currentModalPage(index + 1) && habitIsSatisfactory(index + 1)"
             class="habit-icon-border border-green">
               <img class="habit-icon" :src="icon.pathGreen" :alt="icon.alt">
           </span>
           <span
-            v-if="!currentModalPage(index) && habitIsUnsatisfactory(index)"
+            v-if="!currentModalPage(index + 1) && habitIsUnsatisfactory(index + 1)"
             class="habit-icon-border border-red">
               <img class="habit-icon" :src="icon.pathRed" :alt="icon.alt">
           </span>
         </li>
       </ul>
-      <b-form-group v-if="modalPage==0" label="Do you feel well rested today?">
+      <b-form-group v-if="modalPage==1" label="Do you feel well rested today?">
         <b-form-radio-group
           stacked
           id="radios1"
@@ -53,38 +60,38 @@
           button-variant="success">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==1" label="How many hours of sleep did you get last night?">
+      <b-form-group v-if="modalPage==2" label="How many hours of sleep did you get last night?">
         <b-form-select v-model="hours" :options="hourOptions"/>
       </b-form-group>
-      <b-form-group v-if="modalPage==2" label="Was your bedtime within one hour of yesterday's?">
+      <b-form-group v-if="modalPage==3" label="Was your bedtime within one hour of yesterday's?">
         <b-form-radio-group stacked id="radios2" v-model="bedtime" :options="yesNo" name="radioYesNo">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==3" label="Was your waketime within one hour of yesterday's?">
+      <b-form-group v-if="modalPage==4" label="Was your waketime within one hour of yesterday's?">
         <b-form-radio-group stacked id="radios3" v-model="waketime" :options="yesNo" name="radioYesNo">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==4" label="Did you stop using digital screens at least one hour before bed?">
+      <b-form-group v-if="modalPage==5" label="Did you stop using digital screens at least one hour before bed?">
         <b-form-radio-group stacked id="radios4" v-model="screens" :options="yesNo" name="radioYesNo">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==5" label="Did you avoid bright lights for an hour before bed?">
+      <b-form-group v-if="modalPage==6" label="Did you avoid bright lights for an hour before bed?">
         <b-form-radio-group stacked id="radios5" v-model="brightLights" :options="yesNo" name="radioYesNo">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==6" label="Did you avoid alcohol for 3 hours before bed?">
+      <b-form-group v-if="modalPage==7" label="Did you avoid alcohol for 3 hours before bed?">
         <b-form-radio-group stacked id="radios6" v-model="noAlcohol" :options="yesNo" name="radioYesNo">
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group v-if="modalPage==7" label="Did you avoid caffeine for 7 hours before bed?">
+      <b-form-group v-if="modalPage==8" label="Did you avoid caffeine for 7 hours before bed?">
         <b-form-radio-group stacked id="radios7" v-model="noCaffeine" :options="yesNo" name="radioYesNo">
         </b-form-radio-group>
       </b-form-group>
     </b-container>
     <footer class="modal-actions">
       <b-btn v-if="modalPage > 0" variant="outline-darkBlue" class="mt-3" @click="modalPageDecrement">Back</b-btn>
-      <b-btn v-if="modalPage < 7" variant="darkBlue" class="mt-3" @click="modalPageIncrement">Next</b-btn>
-      <b-btn v-if="modalPage===7" variant="success" class="mt-3" @click="addEntry()">Submit</b-btn>
+      <b-btn v-if="modalPage < 8" variant="darkBlue" class="mt-3" @click="modalPageIncrement">Next</b-btn>
+      <b-btn v-if="modalPage===8" variant="success" class="mt-3" @click="addEntry()">Submit</b-btn>
     </footer>
   </b-modal>
 </template>
@@ -97,7 +104,7 @@ export default {
   data () {
     return {
       modalPage: 0,
-      modalPageMax: 7,
+      modalPageMax: 8,
       hours: null,
       hourOptions: [
         {value: null, text: 'Please select a number'},
@@ -155,6 +162,13 @@ export default {
     }
   },
   methods: {
+    setModalPageStartValue () {
+      if (this.entries) {
+        this.modalPage = 1
+      } else {
+        this.modalPage = 0
+      }
+    },
     modalPageIncrement () {
       this.modalPage++
     },
@@ -192,28 +206,28 @@ export default {
       return this.modalPage === index
     },
     habitIsSatisfactory (index) {
-      if (index === 0) {
+      if (index === 1) {
         return this.rested >= 3
-      } else if (index === 1) {
+      } else if (index === 2) {
         return this.hours >= 7
-      } else if (index >= 2) {
-        return this.habits[index]
+      } else if (index >= 3) {
+        return this.habits[index - 1]
       }
     },
     habitIsUnsatisfactory (index) {
-      if (index === 0) {
+      if (index === 1) {
         return this.rested < 3 && this.rested !== ''
-      } else if (index === 1) {
+      } else if (index === 2) {
         return this.hours < 7 && this.hours !== null
-      } else if (index >= 2) {
-        return this.habits[index] === false
+      } else if (index >= 3) {
+        return this.habits[index - 1] === false
       }
     },
     habitIsUnevaluated (index) {
-      if (index === 0) {
+      if (index === 1) {
         return this.rested === ''
-      } else if (index >= 1) {
-        return this.habits[index] === null
+      } else if (index >= 2) {
+        return this.habits[index - 1] === null
       }
     }
   }

@@ -51,7 +51,7 @@
        </ul>
      </b-card-body>
      <b-card-footer style="padding: .75rem">
-       <b-button class="mr-2 btn-outline-white" @click="showEditDayModal(index)">Edit</b-button>
+       <b-button v-b-modal.modal2 class="mr-2 btn-outline-white" @click="showEditDayModal(index)">Edit</b-button>
        <b-button class="mr-2" variant="outline-danger" @click="deleteEntry(index)">Delete</b-button>
      </b-card-footer>
      <edit-day-modal ref="myModalRef2"></edit-day-modal>
@@ -77,7 +77,6 @@ export default {
     showEditDayModal (index) {
       const entryToEdit = this.entries[index]
       this.$store.dispatch('entryToEdit', entryToEdit)
-      this.$refs.myModalRef2.$refs.myModalRef2.show()
     },
     deleteEntry (index) {
       this.$store.dispatch('deleteEntry', index)
