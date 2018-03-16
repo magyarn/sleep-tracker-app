@@ -162,13 +162,6 @@ export default {
     }
   },
   methods: {
-    setModalPageStartValue () {
-      if (this.entries) {
-        this.modalPage = 1
-      } else {
-        this.modalPage = 0
-      }
-    },
     modalPageIncrement () {
       this.modalPage++
     },
@@ -200,7 +193,7 @@ export default {
       this.brightLights = null
       this.noAlcohol = null
       this.noCaffeine = null
-      this.modalPage = 0
+      this.modalPage = 1
     },
     currentModalPage (index) {
       return this.modalPage === index

@@ -22,7 +22,7 @@
           clearer, and manage stress more easily.
           </p>
           <p>
-            Take action to learn about your sleep habits and improve your quality
+            Take action to learn about your sleep habits and how you may be able to improve your quality
             of sleep by tracking your patterns on this site.
           </p>
           <b-button to="/sleep-journal" size="lg" class="btn-success mt-4">Track My Sleep</b-button>

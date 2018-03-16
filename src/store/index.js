@@ -259,6 +259,12 @@ export default new Vuex.Store({
       const numberOfEntries = state.entries.length
       return Math.round((totalHours / numberOfEntries) * 10) / 10
     },
+    restedStreak: state => {
+      return state.entries.map(entry => entry.rested)
+    },
+    hoursStreak: state => {
+      return state.entries.map(entry => entry.hours)
+    },
     bedtimeStreak: state => {
       return state.entries.map(entry => entry.bedtime)
     },

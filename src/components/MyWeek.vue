@@ -26,7 +26,7 @@
             <b-col v-else lg="9" xl="7">
               <ul class="stat-streak">
                 <li v-for="(day, index) in category.data" :key="index + 100">
-                  <span v-if="day" class="performed-habit">
+                  <span v-if="goodPerformance(category, index)" class="performed-habit">
                     <img class="bonus-badge" :src="performedHabitImage(category)" alt="">
                   </span>
                   <span v-else class="failed-habit">
@@ -58,6 +58,8 @@ export default {
       week: [1, 2, 3, 4, 5, 6, 7],
       streakLabels: [
         'Nights',
+        'Well Rested',
+        '7+ Hours of Sleep',
         'Stick to a Bedtime',
         'Rise and Shine',
         'Shut Off Screens',
@@ -66,6 +68,8 @@ export default {
         'Cut Off the Coffee'
       ],
       performedHabitImages: [
+        '../../static/img/battery.png',
+        '../../static/img/hourglass.png',
         '../../static/img/moon.png',
         '../../static/img/alarm.png',
         '../../static/img/phone.png',
@@ -74,6 +78,8 @@ export default {
         '../../static/img/coffee.png'
       ],
       failedHabitImages: [
+        '../../static/img/battery-red.png',
+        '../../static/img/hourglass-red.png',
         '../../static/img/moon-red.png',
         '../../static/img/alarm-red.png',
         '../../static/img/phone-red.png',
@@ -82,6 +88,8 @@ export default {
         '../../static/img/coffee-red.png'
       ],
       neutralHabitImages: [
+        '../../static/img/battery-white.png',
+        '../../static/img/hourglass-white.png',
         '../../static/img/moon-white.png',
         '../../static/img/alarm-white.png',
         '../../static/img/phone-white.png',
@@ -100,6 +108,12 @@ export default {
     },
     days () {
       return new Array(7 - this.entries.length)
+    },
+    restedStreak () {
+      return this.$store.getters.restedStreak
+    },
+    hoursStreak () {
+      return this.$store.getters.hoursStreak
     },
     bedtimeStreak () {
       return this.$store.getters.bedtimeStreak
@@ -128,6 +142,14 @@ export default {
           data: this.days
         },
         {
+          label: 'Rested',
+          data: this.restedStreak
+        },
+        {
+          label: 'Hours',
+          data: this.hoursStreak
+        },
+        {
           label: 'Consistent Bedtime',
           data: this.bedtimeStreak
         },
@@ -154,48 +176,69 @@ export default {
       ]
     },
     performedHabitImage (category) {
-      if (category.label === 'Consistent Bedtime') {
+      if (category.label === 'Rested') {
         return this.performedHabitImages[0]
-      } else if (category.label === 'Consistent Waketime') {
+      } else if (category.label === 'Hours') {
         return this.performedHabitImages[1]
-      } else if (category.label === 'No screens (1 hour)') {
+      } else if (category.label === 'Consistent Bedtime') {
         return this.performedHabitImages[2]
-      } else if (category.label === 'No bright lights') {
+      } else if (category.label === 'Consistent Waketime') {
         return this.performedHabitImages[3]
-      } else if (category.label === 'No alcohol (3 hours)') {
+      } else if (category.label === 'No screens (1 hour)') {
         return this.performedHabitImages[4]
-      } else if (category.label === 'No caffeine (7 hours)') {
+      } else if (category.label === 'No bright lights') {
         return this.performedHabitImages[5]
+      } else if (category.label === 'No alcohol (3 hours)') {
+        return this.performedHabitImages[6]
+      } else if (category.label === 'No caffeine (7 hours)') {
+        return this.performedHabitImages[7]
       }
     },
     failedHabitImage (category) {
-      if (category.label === 'Consistent Bedtime') {
+      if (category.label === 'Rested') {
         return this.failedHabitImages[0]
-      } else if (category.label === 'Consistent Waketime') {
+      } else if (category.label === 'Hours') {
         return this.failedHabitImages[1]
-      } else if (category.label === 'No screens (1 hour)') {
+      } else if (category.label === 'Consistent Bedtime') {
         return this.failedHabitImages[2]
-      } else if (category.label === 'No bright lights') {
+      } else if (category.label === 'Consistent Waketime') {
         return this.failedHabitImages[3]
-      } else if (category.label === 'No alcohol (3 hours)') {
+      } else if (category.label === 'No screens (1 hour)') {
         return this.failedHabitImages[4]
-      } else if (category.label === 'No caffeine (7 hours)') {
+      } else if (category.label === 'No bright lights') {
         return this.failedHabitImages[5]
+      } else if (category.label === 'No alcohol (3 hours)') {
+        return this.failedHabitImages[6]
+      } else if (category.label === 'No caffeine (7 hours)') {
+        return this.failedHabitImages[7]
       }
     },
     neutralHabitImage (category) {
-      if (category.label === 'Consistent Bedtime') {
+      if (category.label === 'Rested') {
         return this.neutralHabitImages[0]
-      } else if (category.label === 'Consistent Waketime') {
+      } else if (category.label === 'Hours') {
         return this.neutralHabitImages[1]
-      } else if (category.label === 'No screens (1 hour)') {
+      } else if (category.label === 'Consistent Bedtime') {
         return this.neutralHabitImages[2]
-      } else if (category.label === 'No bright lights') {
+      } else if (category.label === 'Consistent Waketime') {
         return this.neutralHabitImages[3]
-      } else if (category.label === 'No alcohol (3 hours)') {
+      } else if (category.label === 'No screens (1 hour)') {
         return this.neutralHabitImages[4]
-      } else if (category.label === 'No caffeine (7 hours)') {
+      } else if (category.label === 'No bright lights') {
         return this.neutralHabitImages[5]
+      } else if (category.label === 'No alcohol (3 hours)') {
+        return this.neutralHabitImages[6]
+      } else if (category.label === 'No caffeine (7 hours)') {
+        return this.neutralHabitImages[7]
+      }
+    },
+    goodPerformance (category, index) {
+      if (category.label === 'Rested') {
+        return category.data[index] > 3
+      } else if (category.label === 'Hours') {
+        return category.data[index] >= 7
+      } else {
+        return category.data[index]
       }
     }
   }

@@ -12,6 +12,18 @@
          <span v-if="entry.rested==4">Very well rested</span>
        </p>
        <ul class="habit-list">
+         <li v-if="entry.rested > 3" class="performed">
+           <img src="../../static/img/battery.png" alt="battery" class="bonus-badge">
+         </li>
+         <li v-else class="failed">
+           <img src="../../static/img/battery-red.png" alt="battery" class="bonus-badge">
+         </li>
+         <li v-if="entry.hours >= 7" class="performed">
+           <img src="../../static/img/hourglass.png" alt="hourglass" class="bonus-badge">
+         </li>
+         <li v-else class="failed">
+           <img src="../../static/img/hourglass-red.png" alt="hourglass" class="bonus-badge">
+         </li>
          <li v-if="entry.bedtime" class="performed">
            <img src="../../static/img/moon.png" alt="moon" class="bonus-badge">
          </li>

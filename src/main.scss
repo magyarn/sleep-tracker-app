@@ -76,6 +76,10 @@ body, html {
   }
 }
 
+.habit-list {
+  justify-content: flex-start;
+}
+
 .performed-habit {
   border-radius: 50%;
   height: 35px;

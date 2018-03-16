@@ -7,6 +7,12 @@
      <p>Nothing to report yet</p>
      <ul class="habit-list">
        <li class="neutral">
+         <img src="../../static/img/battery-white.png" alt="battery" class="bonus-badge">
+       </li>
+       <li class="neutral">
+         <img src="../../static/img/hourglass-white.png" alt="hourglass" class="bonus-badge">
+       </li>
+       <li class="neutral">
          <img src="../../static/img/moon-white.png" alt="moon" class="bonus-badge">
        </li>
        <li class="neutral">
@@ -44,7 +50,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: .25rem;
+  margin: .35rem;
   height: 35px;
   width: 35px;
   overflow: hidden;
