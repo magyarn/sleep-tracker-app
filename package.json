@@ -14,7 +14,7 @@
     "ajv-keywords": "^3.1.0",
     "bootstrap-vue": "^2.0.0-rc.1",
     "jquery": "^3.3.1",
-    "npm": "^5.7.1",
+    "npm": "^6.14.6",
     "save": "^2.3.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
